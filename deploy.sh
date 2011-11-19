@@ -1,1 +1,1 @@
-lein clean && lein appengine-prepare && appcfg.sh --disable_update_check update war/
+lein clean && lein appengine-prepare && appcfg.sh update war/

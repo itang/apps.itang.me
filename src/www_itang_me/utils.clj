@@ -1,14 +1,16 @@
 (ns www-itang-me.utils
   (:use [hiccup core page-helpers])
-  (:import [java.util Calendar TimeZone Locale])
-  (:import java.text.SimpleDateFormat))
+  (:import [java.util Date Calendar TimeZone Locale])
+  (:import [java.text DateFormat SimpleDateFormat]))
 
-(defn todo_html [it]
+(defn todo_html [todo_item]
   {:status 200
    :headers {"Content-Type" "text/html"}
-   :body (html5 [:h1 (str it "(TODO)")])})
+   :body (html5 [:h1 (str "@TODO: " todo_item)])})
 
 (defn now []
-  (let [sdf (SimpleDateFormat. "yyyy-MM-dd HH:mm:ss")
-        time (.getTime (Calendar/getInstance (TimeZone/getTimeZone "Asia/Shanghai") (Locale/CHINA)))]
-    (.format sdf time)))
+  (let [formatter (SimpleDateFormat. "yyyy-MM-dd HH:mm:ss")
+        myTimeZone (TimeZone/getTimeZone "Asia/Shanghai")]
+    (do
+      (.setTimeZone formatter myTimeZone)
+      (.format formatter (Date.)))))

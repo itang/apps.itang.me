@@ -1,4 +1,4 @@
-(ns www-itang-me.layouts
+(ns www-itang-me.views.layouts
   (:use [hiccup core page-helpers])
   (:use [appengine-magic.services.user :only (user-logged-in? current-user get-nickname get-email login-url logout-url)])
   (:use www-itang-me.utils))

@@ -6,7 +6,9 @@ pom.xml
 .lein-failures
 .lein-deps-sum
 
-war/
+war/WEB-INF/classes/
+war/WEB-INF/lib/
+war/WEB-INF/appengine-generated/
 
 *.iml
 .idea/

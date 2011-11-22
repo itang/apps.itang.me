@@ -1,7 +1,8 @@
 (ns www-itang-me.utils
   (:use [hiccup core page-helpers])
   (:import [java.util Date Calendar TimeZone Locale])
-  (:import [java.text DateFormat SimpleDateFormat]))
+  (:import [java.text DateFormat SimpleDateFormat])
+  (:use [cheshire.core]))
 
 (defn todo_html
   "todo page view"
@@ -9,6 +10,12 @@
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body (html5 [:h1 (str "@TODO: " todo_item)])})
+
+(defn view_json
+  [json]
+  {:status 200
+   :headers {"Content-Type" "text/json"}
+   :body (generate-string json)})
 
 (defn now
   "获取格式化后的当前时间"

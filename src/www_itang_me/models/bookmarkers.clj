@@ -26,6 +26,16 @@
          ]]
     (ds/save! bookmarkers)))
 
+(defn inc_hits
+  [name]
+  (let [bookmarker (ds/retrieve Bookmarker name)]
+    (if (nil? bookmarker)
+      nil
+      (let [update_bookmarker (assoc bookmarker :hits (inc (:hits bookmarker)))]
+        (do
+          (ds/save! update_bookmarker)
+          update_bookmarker)))))
+
 (defn all_bookmarkers
   "获取所有的书签"
   []

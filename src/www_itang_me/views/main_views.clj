@@ -4,7 +4,7 @@
   (:use www-itang-me.views.layouts)
   )
 
-(defn index [hot_bookmarkers]
+(defn index [hot_bookmarkers app]
   (default_layout
     (list
       [:div.sidebar {}
@@ -19,18 +19,25 @@
        [:div.hero-unit {}
         [:h2 "TIMELINE"]]
        [:div.row {}
-        [:div.span6 {}
+        [:div.span4 {}
          [:h3 "常用书签"]
          [:ul {}
           (for [site hot_bookmarkers]
             [:li [:a {:href (:url site) :target "_blank" :title (:tags site)} (:title site)]])]]
-        [:div.span6 {}
+        [:div.span4 {}
+         [:h3 "我的github项目"]
+         [:div {}
+          [:ul#myrepos ]
+          (include-js "/public/app/scripts/github-client.js")
+          ]]
+
+        [:div.span4 {}
          [:h3 "关注的github项目"]
          [:div (now)]]]
        [:div.row {}
         [:div.span6 {}
          [:h3 "最新唠叨"]
          [:div (now)]]]
-       (get_footer)])))
+       (get_footer app)])))
 
 

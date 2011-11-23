@@ -4,6 +4,7 @@
   (:use www-itang-me.utils)
   (:use www-itang-me.controllers.main_controllers)
   (:use www-itang-me.controllers.bookmarker_controllers)
+  (:use www-itang-me.controllers.githubclient_controllers)
   )
 
 (defroutes www-itang-me-app-handler
@@ -23,6 +24,8 @@
 
   (GET "/about" _
     (todo_html "About me"))
+
+  (githubclient_controllers)
 
   (ANY "*" _
     {:status 200

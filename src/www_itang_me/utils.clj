@@ -11,11 +11,20 @@
    :headers {"Content-Type" "text/html"}
    :body (html5 [:h1 (str "@TODO: " todo_item)])})
 
+(defn view_ok
+  [body]
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body body}
+  )
+
 (defn view_json
   [json]
   {:status 200
-   :headers {"Content-Type" "text/json"}
-   :body (generate-string json)})
+   :headers {"Content-Type" "application/json"}
+   :body (if (string? json)
+           json
+           (generate-string json))})
 
 (defn now
   "获取格式化后的当前时间"

@@ -19,9 +19,14 @@
           (list [:a {:href (str "/users/" nickname)} email] [:a {:href (logout-url)} "退出"]))
         [:a {:href (login-url)} "登录啊!"])]]]])
 
-(defn get_footer []
-  [:footer {}
-   [:p "&copy; www.itang.me 2011"]])
+;TODO 优化
+(defn get_footer
+  ([] [:footer {} [:p "&copy; www.itang.me 2011"]])
+  ([app]
+    (do
+      [:footer {}
+       [:p (str "&copy; www.itang.me 2011 | " (:version app))]])))
+
 
 (defn default_layout
   "默认布局"

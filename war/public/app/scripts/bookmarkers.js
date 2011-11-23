@@ -13,12 +13,6 @@ $(function() {
     //点击tab链接，在iframe显示网页
     $('.sitelink').click(function(event) {
         var it = this;
-        //刷新
-        $("#frameWindow").attr("src", it.href);
-
-        if(it.href.indexOf("github") > -1){ //github 禁止iframe it
-            return true;
-        }
 
         //增加点击率
         (function updateHit() {
@@ -36,6 +30,13 @@ $(function() {
                 }
             })
         })();
+
+        if(it.href.indexOf("github") > -1){ //github 禁止iframe it
+            return true;
+        }
+
+        //刷新
+        $("#frameWindow").attr("src", it.href);
 
         event.preventDefault();
         event.stopPropagation();

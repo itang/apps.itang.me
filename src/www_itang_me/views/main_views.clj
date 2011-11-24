@@ -24,16 +24,15 @@
          [:ul {}
           (for [site hot_bookmarkers]
             [:li [:a {:href (:url site) :target "_blank" :title (:tags site)} (:title site)]])]]
+         ;;github widget
+        (include-js "/public/app/scripts/github-client.js")
         [:div.span4 {}
          [:h3 "我的github项目"]
-         [:div {}
-          [:ul#myrepos ]
-          (include-js "/public/app/scripts/github-client.js")
-          ]]
-
+         [:div [:ul#myrepos ]]]
         [:div.span4 {}
          [:h3 "关注的github项目"]
-         [:div (now)]]]
+         [:div [:ul#mywatched ]]]]
+
        [:div.row {}
         [:div.span6 {}
          [:h3 "最新唠叨"]

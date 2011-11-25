@@ -3,16 +3,16 @@
 
 (ds/defentity App [^:key name, version, author])
 
-(defn create_app!
+(defn create-app
   [name version author]
 
   (ds/save! (App. name version author))
   )
 
-(defn get_app
+(defn get-app
   []
   (first (ds/query :kind App)))
 
-(defn exists_app?
+(defn exists-app?
   []
   (not (empty? (ds/query :kind App))))

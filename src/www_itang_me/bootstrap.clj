@@ -1,35 +1,31 @@
 (ns www-itang-me.bootstrap
+  (:use [clojure.tools.logging :only (info error)])
   (:require [www-itang-me.models.bookmarkers :as bookmarkers])
   (:require [www-itang-me.models.app :as app]))
 
-(def appinfo {:name "www.itang.me" :version "0.0.1-20111123-SNAPSHOT" :author "itang"})
+(def appinfo {:name "www.itang.me" :version "0.0.1-20111125-SNAPSHOT" :author "itang"})
 
-(defn __need_init_data?
+(defn- need-init-data?
   "需要执行初始化数据操作吗?"
   []
-  (not (app/exists_app?)))
+  (not (app/exists-app?)))
 
-
-
-(defn __init_data!
+(defn- init-data-task
   "初始化数据"
   []
-  (if (__need_init_data?)
+  (when (need-init-data?)
     (do
-      (println "Start to init data")
-      (println "create app...")
-      (app/create_app! (:name appinfo) (:version appinfo) (:author appinfo))
-      (println "init default bookmarkers")
-      (bookmarkers/init_default_data))
-    (println "Don't need to init data!")
-    ))
+      (info "start to init data")
+      (info "create app...")
+      (app/create-app (:name appinfo) (:version appinfo) (:author appinfo))
+      (info "init default bookmarkers")
+      (bookmarkers/init-default-data)
+      (info "Don't need to init data!"))))
 
-(defn do_bootstrap
-  "Bootstrap"
+(defn do-bootstrap
+  "Bootstrap for application"
   []
   (do
-    (println "try init data...")
-    (__init_data!))
-  )
+    (init-data-task)))
 
 

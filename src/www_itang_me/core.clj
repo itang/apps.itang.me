@@ -1,31 +1,29 @@
 (ns www-itang-me.core
   (:use [compojure.core])
   (:require [appengine-magic.core :as ae])
-  (:use www-itang-me.utils)
-  (:use www-itang-me.controllers.main_controllers)
-  (:use www-itang-me.controllers.bookmarker_controllers)
-  (:use www-itang-me.controllers.githubclient_controllers)
-  )
+  (:use [www-itang-me.utils :only (todo-html)])
+  (:use www-itang-me.controllers.main-controllers)
+  (:use www-itang-me.controllers.bookmarker-controllers)
+  (:use www-itang-me.controllers.githubclient-controllers))
 
 (defroutes www-itang-me-app-handler
-  (GET "/" _
-    (main_controllers))
+  (main-routes)
+
+  (bookmarker-routes)
+
+  (githubclient-routes)
 
   (GET "/blog" _
-    (todo_html "Blog"))
+    (todo-html "Blog"))
 
   (GET "/open_source" _
-    (todo_html "Open Source"))
+    (todo-html "Open Source"))
 
   (GET "/apps" _
-    (todo_html "Applications"))
-
-  (bookmarker_controllers)
+    (todo-html "Applications"))
 
   (GET "/about" _
-    (todo_html "About me"))
-
-  (githubclient_controllers)
+    (todo-html "About me"))
 
   (ANY "*" _
     {:status 200

@@ -1,19 +1,17 @@
-(ns www-itang-me.controllers.bookmarker_controllers
+(ns www-itang-me.controllers.bookmarker-controllers
   (:use [compojure.core])
   (:require [www-itang-me.models.bookmarkers :as bookmarkers])
-  (:require [www-itang-me.views.bookmarker_views :as views])
-  (:use [www-itang-me.utils :only (view_json)])
-  )
+  (:require [www-itang-me.views.bookmarker-views :as views])
+  (:use [www-itang-me.utils :only (view-json)]))
 
-(defn bookmarker_controllers
+(defn bookmarker-routes
   []
   (context "/apps/bookmarkers" _
     (GET "/" _
-      (views/index (bookmarkers/all_bookmarkers) (bookmarkers/default_show_site_url)))
+      (views/index (bookmarkers/find-all-bookmarkers) (bookmarkers/get-default-show-site-url)))
     (POST "/:name/inc_hits" [name]
       (do
-        (let [result (bookmarkers/inc_hits name)]
+        (let [result (bookmarkers/inc-hits name)]
           (if (nil? result)
-            (view_json {:success false :message "不存在!"})
-            (view_json {:success true :message "更新成功!" :data {:currHits (:hits result)}})
-            ))))))
+            (view-json {:success false :message "不存在!"})
+            (view-json {:success true :message "更新成功!" :data {:currHits (:hits result)}})))))))

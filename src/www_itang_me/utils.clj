@@ -4,21 +4,21 @@
   (:import [java.text DateFormat SimpleDateFormat])
   (:use [cheshire.core]))
 
-(defn todo_html
+(defn todo-html
   "todo page view"
-  [todo_item]
+  [todo-item]
   {:status 200
    :headers {"Content-Type" "text/html"}
-   :body (html5 [:h1 (str "@TODO: " todo_item)])})
+   :body (html5 [:h1 (str "@TODO: " todo-item)])})
 
-(defn view_ok
+(defn view-ok
   [body]
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body body}
   )
 
-(defn view_json
+(defn view-json
   [json]
   {:status 200
    :headers {"Content-Type" "application/json"}

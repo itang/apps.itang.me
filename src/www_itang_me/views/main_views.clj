@@ -1,11 +1,11 @@
-(ns www-itang-me.views.main_views
+(ns www-itang-me.views.main-views
   (:use [hiccup core page-helpers])
-  (:use www-itang-me.utils)
-  (:use www-itang-me.views.layouts)
-  )
+  (:use [www-itang-me.utils :only (now)])
+  (:use www-itang-me.views.layouts))
 
-(defn index [hot_bookmarkers app]
-  (default_layout
+(defn index
+  [hot-bookmarkers app]
+  (default-layout
     (list
       [:div.sidebar {}
        [:div.well {}
@@ -22,9 +22,9 @@
         [:div.span4 {}
          [:h3 "常用书签"]
          [:ul {}
-          (for [site hot_bookmarkers]
+          (for [site hot-bookmarkers]
             [:li [:a {:href (:url site) :target "_blank" :title (:tags site)} (:title site)]])]]
-         ;;github widget
+        ;;github widget
         (include-js "/public/app/scripts/github-client.js")
         [:div.span4 {}
          [:h3 "我的github项目"]
@@ -37,6 +37,6 @@
         [:div.span6 {}
          [:h3 "最新唠叨"]
          [:div (now)]]]
-       (get_footer app)])))
+       (get-footer app)])))
 
 

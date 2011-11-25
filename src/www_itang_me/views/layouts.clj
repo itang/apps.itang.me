@@ -1,9 +1,8 @@
 (ns www-itang-me.views.layouts
   (:use [hiccup core page-helpers])
-  (:use [appengine-magic.services.user :only (user-logged-in? current-user get-nickname get-email login-url logout-url)])
-  (:use www-itang-me.utils))
+  (:use [appengine-magic.services.user :only (user-logged-in? current-user get-nickname get-email login-url logout-url)]))
 
-(defn get_topbar []
+(defn get-topbar []
   [:div.topbar {}
    [:div.topbar-inner {}
     [:div.container-fluid [:a.brand {:href "#"} "唐古拉山网"]
@@ -20,7 +19,7 @@
         [:a {:href (login-url)} "登录啊!"])]]]])
 
 ;TODO 优化
-(defn get_footer
+(defn get-footer
   ([] [:footer {} [:p "&copy; www.itang.me 2011"]])
   ([app]
     (do
@@ -28,7 +27,7 @@
        [:p (str "&copy; www.itang.me 2011 | " (:version app))]])))
 
 
-(defn default_layout
+(defn default-layout
   "默认布局"
   [content]
   {:status 200
@@ -42,8 +41,7 @@
             [:link {:rel "shortcut icon" :href "/public/app/images/favicon.ico"}]
             (include-js "/public/libs/jquery-1.7.0/jquery.min.js")]
            [:body {}
-            (get_topbar)
+            (get-topbar)
             [:div.container-fluid {}
-             content
-             ]])})
+             content]])})
 

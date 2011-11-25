@@ -1,11 +1,10 @@
-(ns www-itang-me.controllers.main_controllers
+(ns www-itang-me.controllers.main-controllers
   (:use [compojure.core])
   (:require [www-itang-me.models.bookmarkers :as bookmarkers])
   (:require [www-itang-me.models.app :as app])
-  (:require [www-itang-me.views.main_views :as views])
-  )
+  (:require [www-itang-me.views.main-views :as views]))
 
-(defn main_controllers
+(defn main-routes
   []
   (GET "/" _
-    (views/index (bookmarkers/hot_bookmarkers) (app/get_app))))
+    (views/index (bookmarkers/find-hot-bookmarkers) (app/get-app))))

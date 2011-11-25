@@ -4,11 +4,13 @@
 (ds/defentity BookmarkerTag [^:key name, total])
 (ds/defentity Bookmarker [^:key name, title, url, hits, tags])
 
-(defn add_tag
+(defn add-tag
   [tag]
+  ;; @TODO
   )
 
-(defn init_default_data
+(defn init-default-data
+  "初始化默认的书签数据"
   []
   (let [bookmarkers
         [(Bookmarker. "dzone" "dzone" "http://www.dzone.com" 1 "default")
@@ -22,34 +24,32 @@
          (Bookmarker. "jQuery" "jQuery" "http://jquery.com" 0 "jQuery")
          (Bookmarker. "gr" "Google Reader" "https://www.google.com/reader/view/" 0 "default")
          (Bookmarker. "pragrammingscala" "pscala" "http://programming-scala.labs.oreilly.com" 0 "scala")
-         (Bookmarker. "sina" "sina" "http://news.sina.com.cn" 0 "娱乐")
-         ]]
+         (Bookmarker. "sina" "sina" "http://news.sina.com.cn" 0 "娱乐")]]
     (ds/save! bookmarkers)))
 
-(defn inc_hits
+(defn inc-hits
+  "点击量加1"
   [name]
   (let [bookmarker (ds/retrieve Bookmarker name)]
     (if (nil? bookmarker)
       nil
-      (let [update_bookmarker (assoc bookmarker :hits (inc (:hits bookmarker)))]
+      (let [update-bookmarker (assoc bookmarker :hits (inc (:hits bookmarker)))]
         (do
-          (ds/save! update_bookmarker)
-          update_bookmarker)))))
+          (ds/save! update-bookmarker)
+          update-bookmarker)))))
 
-(defn all_bookmarkers
+(defn find-all-bookmarkers
   "获取所有的书签"
   []
   (ds/query :kind Bookmarker :sort [[:hits :dsc ]]))
 
-(defn hot_bookmarkers
+(defn find-hot-bookmarkers
   "常用的书签"
   []
-  (take 6 (all_bookmarkers)))
+  (take 6 (find-all-bookmarkers)))
 
-(defn default_show_site_url
-  "默认显示site"
+(defn get-default-show-site-url
+  "默认显示的site"
   []
-  (let [bookmarkers (all_bookmarkers)]
-    (if (empty? bookmarkers)
-      "http://www.infoq.com"
-      (:url (first bookmarkers)))))
+  (let [bookmarkers (find-all-bookmarkers)]
+    (if (empty? bookmarkers) "http://www.infoq.com" (:url (first bookmarkers)))))

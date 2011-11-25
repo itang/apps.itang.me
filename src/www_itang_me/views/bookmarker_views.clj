@@ -1,11 +1,10 @@
-(ns www-itang-me.views.bookmarker_views
+(ns www-itang-me.views.bookmarker-views
   (:use [hiccup core page-helpers])
-  (:use www-itang-me.utils)
-  (:use www-itang-me.views.layouts)
-  )
+  (:use www-itang-me.views.layouts))
 
-(defn index [bookmarkers home_site]
-  (default_layout
+(defn index
+  [bookmarkers home-site]
+  (default-layout
     (list
       (include-js "/public/app/scripts/bookmarkers.js")
       [:div.sidebar {}
@@ -23,7 +22,7 @@
             ])]]]
       [:div.content {}
        [:div#frame_container {}
-        [:iframe#frameWindow.frame {:src home_site :width "100%" :height "100%"}]]
-       (get_footer)])))
+        [:iframe#frameWindow.frame {:src home-site :width "100%" :height "100%"}]]
+       (get-footer)])))
 
 

@@ -13,10 +13,9 @@
       (String. (:content response)))))
 
 (defn- view-json-page [resource page per-page]
-  (let [url (str github-api-v3-url resource)]
-    (if (nil? page)
-      (view-json (reverse (sort-by :pushed_at (parse-string (http-get-string url)))))
-      (view-json (reverse (sort-by :pushed_at (parse-string (http-get-string url page per-page))))))))
+  (let [url (str github-api-v3-url resource)
+        repos-str (if (nil? page) (http-get-string url) (http-get-string url page per-page))]
+    (view-json (reverse (sort-by :pushed_at (parse-string repos-str))))))
 
 (defn githubclient-routes
   "github client路由"

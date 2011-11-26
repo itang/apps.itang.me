@@ -21,11 +21,11 @@ section > .row {
 }
 
 #frameWindow {
-    width: 100%;
+  width: 100%;
 }
 
-a.sitelink:hover{
-  color:#ff580a;
-  text-decoration:none;
-  background:#ddd;
+a.sitelink:hover {
+  color: #ff580a;
+  text-decoration: none;
+  background: #ddd;
 }

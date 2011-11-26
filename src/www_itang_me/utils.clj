@@ -4,6 +4,26 @@
   (:import [java.text DateFormat SimpleDateFormat])
   (:use [cheshire.core]))
 
+(defstruct Message :success :message :data :detailMessage )
+(defn as-message [success message data detailMessage]
+  (struct-map Message :success success :message message :data data :detailMessage detailMessage))
+
+(defn success-message
+  ([message]
+    (success-message message {} ""))
+  ([message data]
+    (success-message message data ""))
+  ([message data detailMessage]
+    (as-message true message data detailMessage)))
+
+(defn failture-message
+  ([message]
+    (failture-message message {} ""))
+  ([message data]
+    (failture-message message data ""))
+  ([message data detailMessage]
+    (as-message false message data detailMessage)))
+
 (defn todo-html
   "todo page view"
   [todo-item]

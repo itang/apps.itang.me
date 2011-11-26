@@ -39,7 +39,8 @@
             (include-css "/public/libs/bootstrap-1.4.0/bootstrap.min.css")
             (include-css "/public/app/styles/main.css")
             [:link {:rel "shortcut icon" :href "/public/app/images/favicon.ico"}]
-            (include-js "/public/libs/jquery-1.7.0/jquery.min.js")]
+            (include-js "/public/libs/jquery-1.7.0/jquery.min.js")
+            (include-js "/public/libs/underscore-1.2.2/underscore.min.js")]
            [:body {}
             (get-topbar)
             [:div.container-fluid {}

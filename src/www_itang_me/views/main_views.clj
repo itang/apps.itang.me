@@ -28,15 +28,15 @@
         (include-js "/public/app/scripts/github-client.js")
         [:div.span4 {}
          [:h3 "我的github项目"]
-         [:div [:ul#myrepos ]]]
+         [:div [:ul#myrepos ]]]]
+
+       [:div.row {}
+        [:div.span4 {}
+         [:h3 "最新唠叨"]
+         [:div (now)]]
         [:div.span4 {}
          [:h3 "关注的github项目"]
          [:div [:ul#mywatched ]]]]
-
-       [:div.row {}
-        [:div.span6 {}
-         [:h3 "最新唠叨"]
-         [:div (now)]]]
        (get-footer app)])))
 
 

@@ -54,3 +54,9 @@
     (do
       (.setTimeZone formatter myTimeZone)
       (.format formatter (Date.)))))
+
+(defn javascript-tag-ext
+  "Wrap the supplied javascript up in script tags"
+  [attributes script]
+  [:script (merge {:type "text/javascript"} attributes)
+   script])

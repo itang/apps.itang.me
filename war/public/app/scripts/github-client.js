@@ -1,31 +1,52 @@
  /**
   * JS for github client.
   *
-  * require("jquery", "underscore")
+  * require("jquery", "underscore", "handlebars")
   */
 (function(){//START
 var user = "itang";
-function load(url, target){
+function loadReposList(url, options, showRepos, showError){
+  options.page = options.page || 1;
+  options.per_page = options.per_page || 10;
+
   $.ajax({
-    url: url + "?page=0&per_page=500",
+    url: url + "/" + options.page + "/" + options.per_page,
     type: "GET",
     dataType: "json",
     success: function(result){
       if(result.success){
         var reposList = result.data;
-        _.each(reposList, function(repos){
-          target.append('<li><a href="' + repos.html_url + '" title="' + repos.description + "\n" +
-            repos.pushed_at + '" target="_blank">' + repos.name + '</a></li>');
+        _.each(reposList, function(repos, index){
+          //TODO 使用js模板
+          showRepos(repos, index);
         });
       }else {
-        target.append(result.message);
+        if(showError){  showError(result); }
       }
     } //end success
   }); //end $.ajax
 }
 
 $(function(){
-  load("/github/users/" + user + "/repos", $("#myrepos"));
-  load("/github/users/" + user + "/watched", $("#mywatched"));
+  var source   = $("#repos-template").html();
+  var template = Handlebars.compile(source);
+  var myrepos = $("#myrepos");
+
+  function showErrorFor(target){
+    target.html("");//clear
+    target.append("加载数据出错, 请刷新页面重试.")
+  }
+
+  loadReposList("/github/users/" + user + "/repos", {}, function(repos, index){
+    myrepos.append($(template(repos)));
+  }, function(result){
+    myrepos.append("加载数据出错, 请刷新页面重试.")
+  });
+  var mywatched = $("#mywatched");
+  loadReposList("/github/users/" + user + "/watched", {}, function(repos, index){
+    mywatched.append($(template(repos)));
+  }, function(result){
+    showErrorFor(mywatched);
+  });
 });
 })();//END

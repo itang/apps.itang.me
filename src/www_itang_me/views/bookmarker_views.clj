@@ -10,7 +10,7 @@
       [:div.sidebar {}
        [:div.well {}
         (str "共收藏<b>" (count bookmarkers) "</b>个站点")
-        [:input#refresh {:type "button" :value "刷新"}]
+        [:input#refresh {:type "button" :value "刷新" :class "btn"}]
         [:u {}
          (for [site bookmarkers]
            [:li {}

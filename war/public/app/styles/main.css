@@ -5,11 +5,19 @@ body {
   padding-top: 60px;
 }
 
+section {
+  padding-top: 30px;
+}
+
+section > .row {
+  margin-bottom: 10px;
+}
+
 #frame_container {
-    margin-right: 0;
-    padding-right: 0;
-    height: 580px;
-    border: 1px gray solid;
+  margin-right: 0;
+  padding-right: 0;
+  height: 580px;
+  border: 1px gray solid;
 }
 
 #frameWindow {
@@ -17,7 +25,7 @@ body {
 }
 
 a.sitelink:hover{
-    color:#ff580a;
-    text-decoration:none;
-    background:#ddd;
+  color:#ff580a;
+  text-decoration:none;
+  background:#ddd;
 }

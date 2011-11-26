@@ -16,8 +16,8 @@
   (GET "/blog" _
     (todo-html "Blog"))
 
-  (GET "/open_source" _
-    (todo-html "Open Source"))
+  (GET "/projects" _
+    (todo-html "Projects"))
 
   (GET "/apps" _
     (todo-html "Applications"))

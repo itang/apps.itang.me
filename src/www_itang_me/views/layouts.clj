@@ -15,6 +15,7 @@
        [:a.dropdown-toggle {:href "#"} "Apps"]
        [:ul.dropdown-menu {}
         [:li [:a {:href "/apps/bookmarkers"} "Bookmarkers"]]
+        [:li [:a {:href "/apps/todolist"} "Todolist"]]
         [:li.divider ]
         ]]
       [:li [:a {:href "/about"} "About"]]]

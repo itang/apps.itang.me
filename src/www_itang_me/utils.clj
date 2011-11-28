@@ -4,6 +4,12 @@
   (:import [java.text DateFormat SimpleDateFormat])
   (:use [cheshire.core]))
 
+;; just as if-not
+;(defmacro if-nil
+;  ([test then] `(if-nil ~test ~then nil))
+;  ([test then else]
+;    `(if (= nil ~test) ~then ~else)))
+
 (defstruct Message :success :message :data :detailMessage )
 (defn as-message [success message data detailMessage]
   (struct-map Message :success success :message message :data data :detailMessage detailMessage))

@@ -22,6 +22,9 @@
   (GET "/apps" _
     (todo-html "Applications"))
 
+  (GET "/apps/todolist" _
+    (todo-html "Todolist"))
+
   (GET "/about" _
     (todo-html "About me"))
 

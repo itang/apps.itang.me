@@ -11,7 +11,6 @@
       (views/index (bookmarkers/find-all-bookmarkers) (bookmarkers/get-default-show-site-url)))
     (POST "/:name/inc_hits" [name]
       (do
-        (let [result (bookmarkers/inc-hits name)]
-          (if (nil? result)
-            (view-json {:success false :message "不存在!"})
-            (view-json {:success true :message "更新成功!" :data {:currHits (:hits result)}})))))))
+        (if-let [result (bookmarkers/inc-hits name)]
+          (view-json {:success true :message "更新成功!" :data {:currHits (:hits result)}})
+          (view-json {:success false :message "不存在!"}))))))

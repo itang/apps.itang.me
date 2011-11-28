@@ -30,13 +30,12 @@
 (defn inc-hits
   "点击量加1"
   [name]
-  (let [bookmarker (ds/retrieve Bookmarker name)]
-    (if (nil? bookmarker)
-      nil
-      (let [update-bookmarker (assoc bookmarker :hits (inc (:hits bookmarker)))]
-        (do
-          (ds/save! update-bookmarker)
-          update-bookmarker)))))
+  (if-let [bookmarker (ds/retrieve Bookmarker name)]
+    (let [update-bookmarker (assoc bookmarker :hits (inc (:hits bookmarker)))]
+      (do
+        (ds/save! update-bookmarker)
+        update-bookmarker))
+    nil))
 
 (defn find-all-bookmarkers
   "获取所有的书签"

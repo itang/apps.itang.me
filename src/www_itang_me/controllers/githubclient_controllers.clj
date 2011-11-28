@@ -11,8 +11,8 @@
 
 (defn- as-url [url page per-page]
   (str url
-    "?page=" (if (nil? page) DEFAULT-PAGE page)
-    "&per_page=" (if (nil? per-page) DEFAULT-PER-PAGE per-page)))
+    "?page=" (if-not page DEFAULT-PAGE page)
+    "&per_page=" (if-not per-page DEFAULT-PER-PAGE per-page)))
 
 (defn- http-get-string [url page per-page]
   (let [response (fetch (as-url url page per-page) :method :get )]
@@ -26,7 +26,7 @@
   ([resource page per-page]
     (try
       (let [url (str github-api-v3-url resource)
-            repos-str (if (nil? page) (http-get-string url) (http-get-string url page per-page))]
+            repos-str (if-not page (http-get-string url) (http-get-string url page per-page))]
         (view-json
           (success-message "success" (reverse (sort-by #(get % "pushed_at") (parse-string repos-str))))))
       (catch Exception e

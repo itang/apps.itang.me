@@ -11,7 +11,9 @@
                  ;[joda-time/joda-time "2.0"]
                  ]
   :dev-dependencies [[appengine-magic "0.4.6"]
-                     [lein-eclipse "1.0.0"]]
+                     [lein-eclipse "1.0.0"]
+                     [midje "1.3-alpha5"]
+                     [lein-midje "1.0.4"]]
   :aot [www-itang-me.app_servlet])
 
 

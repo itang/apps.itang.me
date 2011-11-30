@@ -19,6 +19,8 @@
         [:li.divider ]
         ]]
       [:li [:a {:href "/mobile"} "Mobile"]]
+      (when (user-logged-in?)
+        [:li [:a {:href "http://hg.itang.me" :target "_blank"} "hg.itang.me"]])
       [:li [:a {:href "/about"} "About"]]]
      [:p.pull-right {}
       (if (user-logged-in?)

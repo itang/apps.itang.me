@@ -16,7 +16,7 @@
 
 (defn- http-get-string [url page per-page]
   (let [response (fetch (as-url url page per-page) :method :get )]
-    (String. (:content response))))
+    (String. (:content response) "UTF-8")))
 
 (defn- view-json-page
   ([resource]

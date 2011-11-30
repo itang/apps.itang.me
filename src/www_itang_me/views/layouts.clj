@@ -18,12 +18,14 @@
         [:li [:a {:href "/apps/todolist"} "Todolist"]]
         [:li.divider ]
         ]]
+      [:li [:a {:href "/mobile"} "Mobile"]]
       [:li [:a {:href "/about"} "About"]]]
      [:p.pull-right {}
       (if (user-logged-in?)
-        (let [nickname (get-nickname (current-user)) email (get-email (current-user))]
-          (list [:a {:href (str "/users/" nickname)} email] [:a {:href (logout-url)} "退出"]))
-        [:a {:href (login-url)} "登录啊!"])]]]])
+        (let [nickname (get-nickname (current-user))
+              email (get-email (current-user))]
+          (list [:a {:href (str "/users/" nickname)} nickname] "&nbsp;" [:a {:href (logout-url)} "Sign out"]))
+        [:a {:href (login-url)} "Sign in"])]]]])
 
 (defn get-footer
   ([] (get-footer (get-app)))
@@ -74,8 +76,9 @@
             (include-lib-min-css "bootstrap" "1.4.0")
             (include-app-css "main")
             [:link {:rel "shortcut icon" :href "/public/app/images/favicon.ico"}]
-            (include-lib-min-js "jquery" "1.7.0")
             (include-lib-min-js "underscore" "1.2.2")
+            (include-lib-min-js "underscore.string" "2.0.0")
+            (include-lib-min-js "jquery" "1.7.0")
             (include-lib-js "handlebars" "1.0.0.beta.4")
             (include-lib-js "bootstrap" "1.4.0" "-dropdown.js")]
            [:body {}

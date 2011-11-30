@@ -25,6 +25,9 @@
   (GET "/apps/todolist" _
     (todo-html "Todolist"))
 
+  (GET "/mobile" _
+    (todo-html "移动版"))
+
   (GET "/about" _
     (todo-html "About me"))
 

@@ -3,6 +3,7 @@
  */
 body {
   padding-top: 60px;
+  background: transparent url(../images/background.png);
 }
 
 section {

@@ -16,9 +16,10 @@
       dataType: "json",
       success: function(result) {
         if (result.success) {
-          var reposList = result.data;
+          var reposList = _.reject(result.data, function(repos) {
+            return _.str.startsWith(repos.name, "_"); //屏蔽私有项目
+          });
           _.each(reposList, function(repos, index) {
-            //TODO 使用js模板
             showRepos(repos, index);
           });
         } else {
@@ -31,25 +32,25 @@
   }
 
   $(function() {
-    var source = $("#repos-template").html();
-    var template = Handlebars.compile(source);
-    var myrepos = $("#myrepos");
+    var template = Handlebars.compile($("#repos-template").html());
 
-    function showErrorFor(target) {
-      target.html("");//clear
-      target.append("加载数据出错, 请刷新页面重试.")
+    function showReposFor(target) {
+      return function(repos, index) {
+        target.append($(template(repos)));
+      }
     }
 
-    loadReposList("/github/users/" + user + "/repos", {}, function(repos, index) {
-      myrepos.append($(template(repos)));
-    }, function(result) {
-      myrepos.append("加载数据出错, 请刷新页面重试.")
-    });
-    var mywatched = $("#mywatched");
-    loadReposList("/github/users/" + user + "/watched", {}, function(repos, index) {
-      mywatched.append($(template(repos)));
-    }, function(result) {
-      showErrorFor(mywatched);
+    function showErrorFor(target) {
+      return function(result) {
+        target.html("加载数据出错, 请刷新页面重试.");
+      }
+    }
+
+    _.each([
+      {target: $("#myrepos"), uri:"/github/users/" + user + "/repos"},
+      {target: $("#mywatched"), uri:"/github/users/" + user + "/watched"}
+    ], function(it) {
+      loadReposList(it.uri, {}, showReposFor(it.target), showErrorFor(it.target));
     });
   });
 })();//END

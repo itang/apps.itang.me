@@ -90,7 +90,7 @@ Handlebars.registerHelper('log', function(context) {
   Handlebars.log(context);
 });
 ;
-// lib/handlebars/compiler/parser.js
+// libs/handlebars/compiler/parser.js
 /* Jison generated parser */
 var handlebars = (function(){
 
@@ -569,7 +569,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 }
 };
 ;
-// lib/handlebars/compiler/base.js
+// libs/handlebars/compiler/base.js
 Handlebars.Parser = handlebars;
 
 Handlebars.parse = function(string) {
@@ -590,7 +590,7 @@ Handlebars.logger = {
 
 Handlebars.log = function(level, str) { Handlebars.logger.log(level, str); };
 ;
-// lib/handlebars/compiler/ast.js
+// libs/handlebars/compiler/ast.js
 (function() {
 
   Handlebars.AST = {};
@@ -689,7 +689,7 @@ Handlebars.log = function(level, str) { Handlebars.logger.log(level, str); };
   };
 
 })();;
-// lib/handlebars/utils.js
+// libs/handlebars/utils.js
 Handlebars.Exception = function(message) {
   var tmp = Error.prototype.constructor.apply(this, arguments);
 
@@ -751,7 +751,7 @@ Handlebars.SafeString.prototype.toString = function() {
     }
   };
 })();;
-// lib/handlebars/compiler/compiler.js
+// libs/handlebars/compiler/compiler.js
 Handlebars.Compiler = function() {};
 Handlebars.JavaScriptCompiler = function() {};
 
@@ -1526,7 +1526,7 @@ Handlebars.compile = function(string, options) {
   };
 };
 ;
-// lib/handlebars/vm.js
+// libs/handlebars/vm.js
 Handlebars.VM = {
   template: function(templateSpec) {
     // Just add water

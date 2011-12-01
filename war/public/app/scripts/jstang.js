@@ -15,7 +15,7 @@
     return target;
   }
 
-  namespace("jstang");
+  var jstang = namespace("jstang");
   jstang.ns = namespace;
   return jstang;
 })(window);

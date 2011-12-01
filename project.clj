@@ -8,7 +8,7 @@
                  [hiccup "0.3.6"]
                  [cheshire "2.0.2"]
                  [log4j/log4j "1.2.16"]
-                 ;[joda-time/joda-time "2.0"]
+                 ;[tentacles "0.1.0"]
                  ]
   :dev-dependencies [[appengine-magic "0.4.6"]
                      [lein-eclipse "1.0.0"]

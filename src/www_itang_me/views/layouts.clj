@@ -1,6 +1,7 @@
 (ns www-itang-me.views.layouts
   (:use [hiccup core page-helpers])
   (:use [appengine-magic.services.user :only (user-logged-in? current-user get-nickname get-email login-url logout-url)])
+  (:require [www-itang-me.auth :as auth])
   (:use [www-itang-me.models.app :only (get-app)]))
 
 (defn get-topbar []
@@ -19,7 +20,7 @@
         [:li.divider ]
         ]]
       [:li [:a {:href "/mobile"} "Mobile"]]
-      (when (user-logged-in?)
+      (when (auth/is-me?)
         [:li [:a {:href "http://hg.itang.me" :target "_blank"} "hg.itang.me"]])
       [:li [:a {:href "/about"} "About"]]]
      [:p.pull-right {}

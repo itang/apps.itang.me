@@ -15,21 +15,21 @@
     (for [[k v] entries]
       [(.replace (name k) "-" "_") v])))
 
-(defn- safe-pare [response]
+(defn- safe-parse [response]
   (when-not (= 204 (:status response))
-    (json/parse-string (String. (:content response) "UTF-8")) true))
+    (json/parse-string (String. (:content response) "UTF-8") true)))
 
 (defn- to-query-params [query]
   (if-not query
     ""
-    (let [kvs (for [[k v] query] (str k "=" v))]
-      (string/join "&" kvs))))
+    (let [items (for [[K V] query] (str K "=" V))]
+      (str "?" (string/join "&" items)))))
 
 (defn- make-request [method end-point positional query]
-  (let [url (str github-api-v3-url (apply format end-point positional) "?" (to-query-params (query)))
+  (let [url (str github-api-v3-url (apply format end-point positional) (to-query-params query))
         method method]
     (safe-parse
-      (fetch url :method method))))
+      (http/fetch url :method method))))
 
 (defn api-call [method end-point positional query]
   (let [query (query-map query)]
@@ -42,9 +42,9 @@
    Options are:
       types -- all (default), public, private, member."
   [user & [options]]
-  (api-call :get "users/%s/repos" [user] options))
+  (api-call :get "/users/%s/repos" [user] options))
 
-(defn watching
+(defn user-watching
   "List all the repositories that a user is watching."
   [user & [options]]
-  (api-call :get "users/%s/watched" [user] options))
+  (api-call :get "/users/%s/watched" [user] options))

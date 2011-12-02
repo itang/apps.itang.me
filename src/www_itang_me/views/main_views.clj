@@ -9,12 +9,8 @@
     (list
       [:div.sidebar {}
        [:div.well {}
-        [:h4 "\"做一个出色的码匠\""]
-        [:u {}
-         [:li [:a {:href "/apps/bookmarkers"} "Bookmarkers"]]
-         [:li [:a {:href "/projects"} "My projects"]]
-         [:li [:a {:href "/about"} "About"]]
-         ]
+        [:h3 "\"做一个出色的码匠\""]
+        [:hr]
         [:h4 "我的网络"]
         [:u {}
          [:li [:a {:href "https://twitter.com/#!/livetang" :target "_blank"} "@livetang"]]
@@ -56,7 +52,7 @@
             (javascript-tag-ext {:id "repos-template" :type "text/x-handlebars-template"}
               [:li {}
                "{{index}} &nbsp;"
-               [:a {:href "{{html_url}}" :title "{{description}}\n{{pushed_at}}" :target "_blank"}
+               [:a {:href "{{html_url}}" :title "{{description}}\n{{updated_at}}" :target "_blank"}
                 "{{name}}"]
                [:small "({{language}})"]])]
            [:a {:href "/projects" :class "btn pull-center" :target "_blank"} "更多"]]]

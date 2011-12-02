@@ -8,7 +8,7 @@
   [call]
   (try
     (view-json
-      (success-message "success" (reverse (sort-by #(% "pushed_at") (call)))))
+      (success-message "success" (reverse (sort-by #(:updated_at %) (call)))))
     (catch Exception e
       (warn (.getMessage e))
       (view-json

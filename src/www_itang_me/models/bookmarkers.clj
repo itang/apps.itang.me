@@ -40,7 +40,7 @@
 (defn find-all-bookmarkers
   "获取所有的书签"
   []
-  (ds/query :kind Bookmarker :sort [[:hits :dsc ]]))
+  (ds/query :kind Bookmarker :sort [[:hits :dsc]]))
 
 (defn find-hot-bookmarkers
   "常用的书签"

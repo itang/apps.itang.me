@@ -1,18 +1,16 @@
 (ns www-itang-me.controllers.githubclient-controllers
-  (:use [compojure.core]
-        [clojure.tools.logging :only (info warn error)]
-        [www-itang-me.utils])
-  (:require [www-itang-me.libs.github-client :as github]))
+  (:use compojure.core
+    [clojure.tools.logging :only (info warn error)]
+    [mvc.controller-helpers :only (success-message failture-message Json)])
+  (:require [libs.github-client :as github]))
 
 (defn- view-json-page
   [call]
   (try
-    (view-json
-      (success-message "success" (reverse (sort-by #(:updated_at %) (call)))))
+    (Json (success-message "success" (reverse (sort-by #(:updated_at %) (call)))))
     (catch Exception e
       (warn (.getMessage e))
-      (view-json
-        (failture-message (.getMessage e) {})))))
+      (Json (failture-message (.getMessage e) {})))))
 
 (defn githubclient-routes
   "github client路由"

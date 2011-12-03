@@ -1,7 +1,7 @@
-(ns www-itang-me.libs.github-client
+(ns libs.github-client
   (:require [clojure.string :as string]
-            [appengine-magic.services.url-fetch :as http]
-            [cheshire.core :as json]))
+    [appengine-magic.services.url-fetch :as http]
+    [cheshire.core :as json]))
 
 (def github-api-v3-url "https://api.github.com")
 (def DEFAULT-PAGE 1)

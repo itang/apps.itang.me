@@ -1,13 +1,16 @@
 (ns www-itang-me.views.layouts
-  (:use [hiccup core page-helpers])
-  (:use [appengine-magic.services.user :only (user-logged-in? current-user get-nickname get-email login-url logout-url)])
+  (:use [hiccup core page-helpers]
+    [appengine-magic.services.user
+     :only (user-logged-in? current-user get-nickname get-email login-url logout-url)])
   (:require [www-itang-me.auth :as auth])
-  (:use [www-itang-me.models.app :only (get-app)]))
+  (:use [www-itang-me.utils :only (getstring)]
+    [www-itang-me.models.app :only (get-app)]
+    www-itang-me.views.util))
 
 (defn get-topbar []
   [:div.topbar {}
    [:div.topbar-inner {}
-    [:div.container-fluid [:a.brand {:href "#"} "唐古拉山网"]
+    [:div.container-fluid [:a.brand {:href "#"} "爱唐网"]
      [:ul.nav {}
       [:li.active [:a {:href "/"} "Home"]]
       [:li [:a {:href "/blog"} "Blog"]]
@@ -17,7 +20,7 @@
        [:ul.dropdown-menu {}
         [:li [:a {:href "/apps/bookmarkers"} "Bookmarkers"]]
         [:li [:a {:href "/apps/todolist"} "Todolist"]]
-        [:li.divider ]
+        [:li.divider]
         ]]
       [:li [:a {:href "/mobile"} "Mobile"]]
       (when (auth/is-me?)
@@ -36,56 +39,26 @@
     [:footer {}
      [:p (str "&copy; www.itang.me 2011 | " (:version app))]]))
 
-(defn- rule-path [prefix-path name version ext]
-  (str prefix-path "/" name "-" version "/" name ext))
-
-(defn- include-lib-js
-  ([name version]
-    (include-lib-js name version ".js"))
-  ([name version ext]
-    (include-js (rule-path "/public/libs" name version ext))))
-
-(defn- include-lib-min-js [name version]
-  (include-lib-js name version ".min.js"))
-
-(defn- include-lib-css
-  ([name version]
-    (include-lib-css name version ".css"))
-  ([name version ext]
-    (include-css (rule-path "/public/libs" name version ext))))
-
-(defn- include-lib-min-css [name version]
-  (include-lib-css name version ".min.css"))
-
-(defn- include-app-css
-  ([name]
-    (include-app-css name ".css"))
-  ([name ext]
-    (include-css (str "/public/app/styles/" name ext))))
-
-(defn- include-app-min-css [name]
-  (include-app-css name ".min.css"))
-
-
 (defn default-layout
   "默认布局"
-  [content]
+  ;;[content & {:keys [title] :or {title "爱唐网"} :as options}]
+  [content & {:keys [title] :as options}]
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body (html5
-           [:head [:meta {:name "description" :content ""}]
-            [:meta {:author "description" :content "itang - 唐古拉山"}]
-            [:title "唐古拉山网"]
-            (include-lib-min-css "bootstrap" "1.4.0")
-            (include-app-css "main")
-            [:link {:rel "shortcut icon" :href "/public/app/images/favicon.ico"}]
-            (include-lib-min-js "underscore" "1.2.2")
-            (include-lib-min-js "underscore.string" "2.0.0")
-            (include-lib-min-js "jquery" "1.7.0")
-            (include-lib-js "handlebars" "1.0.0.beta.4")
-            (include-lib-js "bootstrap" "1.4.0" "-dropdown.js")]
-           [:body {}
-            (get-topbar)
-            [:div.container-fluid {}
-             content]])})
+     [:head [:meta {:name "description" :content (getstring options "description" "itang的Personal Website")}]
+      [:meta {:author "description" :content "itang - 唐古拉山"}]
+      [:title (getstring title " - " "爱唐网")]
+      (include-lib-min-css "bootstrap" "1.4.0")
+      (include-app-css "main")
+      [:link {:rel "shortcut icon" :href "/public/app/images/favicon.ico"}]
+      (include-lib-min-js "underscore" "1.2.2")
+      (include-lib-min-js "underscore.string" "2.0.0")
+      (include-lib-min-js "jquery" "1.7.0")
+      (include-lib-js "handlebars" "1.0.0.beta.4")
+      (include-lib-js "bootstrap" "1.4.0" "-dropdown.js")]
+     [:body {}
+      (get-topbar)
+      [:div.container-fluid {}
+       content]])})
 

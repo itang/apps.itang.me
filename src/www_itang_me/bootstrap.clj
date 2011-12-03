@@ -1,7 +1,7 @@
 (ns www-itang-me.bootstrap
   (:use [clojure.tools.logging :only (info error)])
-  (:require [www-itang-me.models.bookmarkers :as bookmarkers])
-  (:require [www-itang-me.models.app :as app]))
+  (:require [www-itang-me.models.bookmarkers :as bookmarkers]
+    [www-itang-me.models.app :as app]))
 
 (def appinfo {:name "www.itang.me" :version "0.0.1-20111125-SNAPSHOT" :author "itang"})
 
@@ -13,14 +13,17 @@
 (defn- init-data-task
   "初始化数据"
   []
-  (when (need-init-data?)
+  (if (need-init-data?)
     (do
-      (info "start to init data")
-      (info "create app...")
+      (info "start to init data...")
+      (info "try to create app...")
       (app/create-app (:name appinfo) (:version appinfo) (:author appinfo))
-      (info "init default bookmarkers")
+      (info "finished create app!")
+      (info "try to init default bookmarkers...")
       (bookmarkers/init-default-data)
-      (info "Don't need to init data!"))))
+      (info "finished init default bookmarkers!")
+      (info "finished  init data!"))
+    (info "Don't need to init data!")))
 
 (defn do-bootstrap
   "Bootstrap for application"

@@ -1,8 +1,8 @@
 (ns www-itang-me.controllers.bookmarker-controllers
-  (:use [compojure.core])
-  (:require [www-itang-me.models.bookmarkers :as bookmarkers])
-  (:require [www-itang-me.views.bookmarker-views :as views])
-  (:use [www-itang-me.utils :only (view-json)]))
+  (:use compojure.core)
+  (:require [www-itang-me.models.bookmarkers :as bookmarkers]
+    [www-itang-me.views.bookmarker-views :as views])
+  (:use [mvc.controller-helpers :only (Json)]))
 
 (defn bookmarker-routes
   []
@@ -12,5 +12,5 @@
     (POST "/:name/inc_hits" [name]
       (do
         (if-let [result (bookmarkers/inc-hits name)]
-          (view-json {:success true :message "更新成功!" :data {:currHits (:hits result)}})
-          (view-json {:success false :message "不存在!"}))))))
+          (Json {:success true :message "更新成功!" :data {:currHits (:hits result)}})
+          (Json {:success false :message "不存在!"}))))))

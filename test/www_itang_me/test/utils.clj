@@ -10,15 +10,21 @@
 
 (fact (+ 1 1) => 2)
 
-(facts "todo-html"
-  (:status (todo-html "todo")) => 200
-  (:headers (todo-html "todo")) => {"Content-Type" "text/html"})
+(facts "getstring"
+  (getstring "a" "-" "b") => "a-b"
+  (getstring "a" "" "b") => "ab"
+  (getstring "a" nil "b") => "ab"
+  (getstring "a" nil nil) => "a"
 
-(facts "view-json"
-  (:status (view-json "{}")) => 200
-  (:headers (view-json "{}")) => {"Content-Type" "application/json"}
-  (:body (view-json "{}")) => "{}"
-  (:body (view-json {})) => "{}"
-  (:body (view-json {:name "itang"})) => "{\"name\":\"itang\"}"
-  (:body (view-json [1,2])) => "[1,2]")
+  (getstring nil "-" "b") => "b"
+  (getstring nil nil "b") => "b"
+
+  (getstring {:name "a"} :name "-" "b") => "a-b"
+  (getstring {:name "a"} "name" "-" "b") => "a-b"
+
+  (getstring nil :name "-" "b") => "b"
+  (getstring nil nil "-" "b") => "b"
+  (getstring {:name "a"} nil "-" "b") => "b"
+  (getstring {:name "a"} :name1 "-" "b") => "b"
+  (getstring {:name "a"} "name1" "-" "b") => "b")
 

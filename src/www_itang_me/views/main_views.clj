@@ -1,7 +1,8 @@
 (ns www-itang-me.views.main-views
   (:use [hiccup core page-helpers])
-  (:use [www-itang-me.utils :only (now javascript-tag-ext)])
-  (:use www-itang-me.views.layouts))
+  (:use www-itang-me.utils
+    www-itang-me.views.util
+    www-itang-me.views.layouts))
 
 (defn index
   [hot-bookmarkers app]
@@ -10,14 +11,13 @@
       [:div.sidebar {}
        [:div.well {}
         [:h3 "\"做一个出色的码匠\""]
+        [:div "itang/唐古拉山"]
         [:hr]
         [:h4 "我的网络"]
         [:u {}
          [:li [:a {:href "https://twitter.com/#!/livetang" :target "_blank"} "@livetang"]]
          [:li [:a {:href "http://www.douban.com/people/itang/" :target "_blank"} "itang@douban"]]
-         [:li [:a {:href "http://itang.iteye.com" :target "_blank"} "itang@iteye"]]
-         ]
-        ]]
+         [:li [:a {:href "http://itang.iteye.com" :target "_blank"} "itang@iteye"]]]]]
       [:div.content {}
        [:div.hero-unit {}
         [:h2 "TIMELINE"]]
@@ -41,10 +41,9 @@
        [:section#github_section {}
         [:div.page-header {}
          [:h1 "我的项目" "&nbsp;" [:small "参与或关注的项目"]]]
-
         [:div.row {}
          ;;github widget
-         (include-js "/public/app/scripts/github-client.js")
+         (include-app-js "github-client")
          [:div.span5 {}
           [:h3 "关注的github项目"]
           [:div {}
@@ -58,9 +57,7 @@
            [:a {:href "/projects" :class "btn pull-center" :target "_blank"} "更多"]]]
          [:div.span5 {}
           [:h3 "我的github项目"]
-          [:div [:ul#myrepos ]]]
-         ]
-        ] ;;end section@github
+          [:div [:ul#myrepos]]]]] ;;end section@github
        (get-footer app)])))
 
 

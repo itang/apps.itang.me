@@ -1,10 +1,10 @@
 (ns www-itang-me.app_servlet
   (:gen-class :extends javax.servlet.http.HttpServlet
-              :exposes-methods {init superInit})
-  (:use [clojure.tools.logging :only (info error)])
-  (:use www-itang-me.core)
-  (:use [appengine-magic.servlet :only [make-servlet-service-method]])
-  (:use [www-itang-me.bootstrap :only (do-bootstrap)]))
+    :exposes-methods {init superInit})
+  (:use [clojure.tools.logging :only (info error)]
+    [appengine-magic.servlet :only [make-servlet-service-method]])
+  (:use www-itang-me.core
+    [www-itang-me.bootstrap :only (do-bootstrap)]))
 
 (defn -init-void
   "应用引导期执行任务(in servlet 初始化)"

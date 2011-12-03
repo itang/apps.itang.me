@@ -1,12 +1,13 @@
 (ns www-itang-me.views.bookmarker-views
-  (:use [hiccup core page-helpers])
-  (:use www-itang-me.views.layouts))
+  (:use [hiccup core page-helpers]
+    [www-itang-me.views.util :only (include-app-js)]
+    [www-itang-me.views.layouts :only (default-layout get-footer)]))
 
 (defn index
   [bookmarkers home-site]
   (default-layout
     (list
-      (include-js "/public/app/scripts/bookmarkers.js")
+      (include-app-js "bookmarkers")
       [:div.sidebar {}
        [:div.well {}
         (str "共收藏<b>" (count bookmarkers) "</b>个站点")
@@ -14,15 +15,17 @@
         [:u {}
          (for [site bookmarkers]
            [:li {}
-            [:a.sitelink {:href (:url site) :id (:id site) :target "_blank" :title (:tags site) :data-it (:name site)} (:title site)]
+            [:a.sitelink
+             {:href (:url site) :id (:id site) :target "_blank" :title (:tags site) :data-it (:name site)}
+             (:title site)]
             [:small {}
              "&nbsp;("
              [:span {:id (str (:name site) "hits")} (:hits site)]
-             ")"]
-            ])]]]
+             ")"]])]]] ;;end div.sidebar
       [:div.content {}
        [:div#frame_container {}
         [:iframe#frameWindow.frame {:src home-site :width "100%" :height "100%"}]]
-       (get-footer)])))
+       (get-footer)])
+    :title "书签"))
 
 

@@ -1,56 +1,6 @@
 (ns www-itang-me.utils
-  (:use [hiccup core page-helpers])
-  (:import [java.util Date Calendar TimeZone Locale])
-  (:import [java.text DateFormat SimpleDateFormat])
-  (:use [cheshire.core]))
-
-;; just as if-not
-;(defmacro if-nil
-;  ([test then] `(if-nil ~test ~then nil))
-;  ([test then else]
-;    `(if (= nil ~test) ~then ~else)))
-
-(defstruct Message :success :message :data :detailMessage )
-(defn as-message [success message data detailMessage]
-  (struct-map Message :success success :message message :data data :detailMessage detailMessage))
-
-(defn success-message
-  ([message]
-    (success-message message {} ""))
-  ([message data]
-    (success-message message data ""))
-  ([message data detailMessage]
-    (as-message true message data detailMessage)))
-
-(defn failture-message
-  ([message]
-    (failture-message message {} ""))
-  ([message data]
-    (failture-message message data ""))
-  ([message data detailMessage]
-    (as-message false message data detailMessage)))
-
-(defn todo-html
-  "todo page view"
-  [todo-item]
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body (html5 [:h1 (str "@TODO: " todo-item)])})
-
-(defn view-ok
-  [body]
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body body}
-  )
-
-(defn view-json
-  [json]
-  {:status 200
-   :headers {"Content-Type" "application/json"}
-   :body (if (string? json)
-           json
-           (generate-string json))})
+  (:import [java.util Date Calendar TimeZone Locale]
+    [java.text DateFormat SimpleDateFormat]))
 
 (defn now
   "获取格式化后的当前时间"
@@ -61,8 +11,12 @@
       (.setTimeZone formatter myTimeZone)
       (.format formatter (Date.)))))
 
-(defn javascript-tag-ext
-  "Wrap the supplied javascript up in script tags"
-  [attributes script]
-  [:script (merge {:type "text/javascript"} attributes)
-   script])
+(defn getstring
+  ([value link-symbol target]
+    (if value
+      (str value link-symbol target)
+      target))
+  ([options key link-symbol target]
+    (if (and options key)
+      (getstring ((keyword key) options) link-symbol target)
+      target)))

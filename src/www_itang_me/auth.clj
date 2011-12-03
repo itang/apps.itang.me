@@ -1,5 +1,6 @@
 (ns www-itang-me.auth
-  (:use [appengine-magic.services.user :only (user-logged-in? current-user get-nickname get-email login-url logout-url)]))
+  (:use [appengine-magic.services.user
+         :only (user-logged-in? current-user get-nickname get-email login-url logout-url)]))
 
 (defn is?
   "判断是当前登录用户?"

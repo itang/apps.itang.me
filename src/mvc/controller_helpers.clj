@@ -57,6 +57,6 @@
   [todo-item]
   (Ok (html5
     [:head
-     [:title (str "TODO" "-" "爱唐网")]]
+     [:title "TODO"]]
     [:body {}
      [:h1 (str "@TODO: " todo-item)]])))

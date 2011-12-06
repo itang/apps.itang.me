@@ -1,6 +1,6 @@
 (ns www-itang-me.views.bookmarker-views
   (:use [hiccup core page-helpers]
-    [www-itang-me.views.util :only (include-app-js)]
+    [mvc.view-helpers :only (include-app-js)]
     [www-itang-me.views.layouts :only (default-layout get-footer)]))
 
 (defn index

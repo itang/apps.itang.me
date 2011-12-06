@@ -1,7 +1,7 @@
 (ns www-itang-me.views.main-views
   (:use [hiccup core page-helpers])
-  (:use www-itang-me.utils
-    www-itang-me.views.util
+  (:use mvc.view-helpers
+    www-itang-me.utils
     www-itang-me.views.layouts))
 
 (defn index
@@ -24,7 +24,7 @@
 
        [:section#mytools_section {}
         [:div.page-header {}
-         [:h1 "我的工具" "&nbsp;" [:small "方便自己使用的一些工具集"]]]
+         [:h1 "应用" "&nbsp;" [:small "方便个人的一些应用集"]]]
         [:div.row {}
          [:div.span5 {}
           [:h3 "常用书签"]
@@ -40,7 +40,7 @@
 
        [:section#github_section {}
         [:div.page-header {}
-         [:h1 "我的项目" "&nbsp;" [:small "参与或关注的项目"]]]
+         [:h1 "项目" "&nbsp;" [:small "参与或关注的项目"]]]
         [:div.row {}
          ;;github widget
          (include-app-js "github-client")

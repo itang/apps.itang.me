@@ -2,15 +2,16 @@
   (:use [hiccup core page-helpers]
     [appengine-magic.services.user
      :only (user-logged-in? current-user get-nickname get-email login-url logout-url)])
-  (:require [www-itang-me.auth :as auth])
-  (:use [www-itang-me.utils :only (getstring)]
-    [www-itang-me.models.app :only (get-app)]
-    www-itang-me.views.util))
+  (:require [www-itang-me.auth :as auth]
+    [www-itang-me.config :as config])
+  (:use mvc.view-helpers
+    [www-itang-me.utils :only (getstring)]
+    [www-itang-me.models.app :only (get-app)]))
 
 (defn get-topbar []
   [:div.topbar {}
    [:div.topbar-inner {}
-    [:div.container-fluid [:a.brand {:href "#"} "爱唐网"]
+    [:div.container-fluid [:a.brand {:href "#"} config/website-name]
      [:ul.nav {}
       [:li.active [:a {:href "/"} "Home"]]
       [:li [:a {:href "/blog"} "Blog"]]
@@ -48,7 +49,7 @@
    :body (html5
      [:head [:meta {:name "description" :content (getstring options "description" "itang的Personal Website")}]
       [:meta {:author "description" :content "itang - 唐古拉山"}]
-      [:title (getstring title " - " "爱唐网")]
+      [:title (getstring title " - " config/website-title)]
       (include-lib-min-css "bootstrap" "1.4.0")
       (include-app-css "main")
       [:link {:rel "shortcut icon" :href "/public/app/images/favicon.ico"}]

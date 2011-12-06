@@ -1,4 +1,4 @@
-(ns www-itang-me.views.util
+(ns mvc.view-helpers
   (:use [hiccup.page-helpers :only (include-js include-css)]))
 
 (defn javascript-tag-ext

@@ -4,7 +4,7 @@
     [www-itang-me.views.layouts :only (default-layout get-footer)]))
 
 (defn index
-  [bookmarkers home-site]
+  [bookmarkers & [home-site]]
   (default-layout
     (list
       (include-app-js "bookmarkers")

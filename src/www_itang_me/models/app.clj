@@ -17,3 +17,8 @@
   "存在应用配置?"
   []
   (not (empty? (ds/query :kind App))))
+
+(defn reset-app
+ "重置应用配置"
+  []
+  (ds/delete! (ds/query :kind App)))

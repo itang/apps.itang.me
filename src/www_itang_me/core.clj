@@ -5,7 +5,8 @@
   (:use [www-itang-me.controllers
          main-controllers
          bookmarker-controllers
-         githubclient-controllers]))
+         githubclient-controllers
+         admin-controllers]))
 
 (defroutes www-itang-me-app-handler
   (main-routes)
@@ -13,6 +14,8 @@
   (bookmarker-routes)
 
   (githubclient-routes)
+
+  (admin-routes)
 
   (GET "/blog" _
     (Todo "Blog"))

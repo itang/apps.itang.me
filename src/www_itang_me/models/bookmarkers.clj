@@ -37,20 +37,29 @@
         update-bookmarker))
     nil))
 
+(defn find-bookmarkers
+  "获取所有的书签"
+  [& {:keys [sort only-public?] :or {sort [[:hits :dsc ]] only-public? false} :as options}]
+  (if only-public?
+    (ds/query :kind Bookmarker :sort (seq sort) :filter (= :public true))
+    (ds/query :kind Bookmarker :sort (seq sort))))
+
 (defn find-all-bookmarkers
   "获取所有的书签"
   []
-  (ds/query :kind Bookmarker :sort [[:hits :dsc ]]))
+  (find-bookmarkers))
 
 (defn find-public-bookmarkers
   "获取公开的书签"
   []
-  (ds/query :kind Bookmarker :sort [[:hits :dsc ]] :filter (= :public true)))
+  (find-bookmarkers :only-public? true))
 
 (defn find-hot-bookmarkers
   "常用的书签"
-  []
-  (take 6 (find-all-bookmarkers)))
+  [& [only-public?]]
+  (take 6 (if only-public?
+            (find-public-bookmarkers)
+            (find-all-bookmarkers))))
 
 (defn get-default-show-site-url
   "默认显示的site"

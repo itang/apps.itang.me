@@ -3,16 +3,16 @@
  *
  * require("jquery", "underscore")
  */
-(function() {//START
-  $(function() {
+(function () {//START
+  $(function () {
     //refresh click事件 -> iframe reload
-    $('#refresh').click(function() {
+    $('#refresh').click(function () {
       var iframe = $("#frameWindow");
       iframe.attr("src", iframe.attr("src"));
     });
 
     //点击tab链接，在iframe显示网页
-    $('.sitelink').click(function(event) {
+    $('.sitelink').click(function (event) {
       var it = this;
       //增加点击率
       (function updateHit() {
@@ -21,7 +21,7 @@
           url:"/apps/bookmarkers/" + name + "/inc_hits",
           type:"POST",
           dataType:"json",
-          success: function(result) {
+          success:function (result) {
             if (result.success) {
               $("#" + name + "hits").html(result.data.currHits);
             } else {
@@ -41,5 +41,8 @@
       event.preventDefault();
       event.stopPropagation();
     });
+
+    //自动打开第一个链接
+    $('.sitelink:first').trigger('click');
   });
 })();//END

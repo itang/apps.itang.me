@@ -9,5 +9,4 @@
   []
   (GET "/" _
     (let [only-public? (not (auth/is-me?))]
-      (println only-public?)
       (views/index (bookmarkers/find-hot-bookmarkers only-public?) (app/get-app)))))

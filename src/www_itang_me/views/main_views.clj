@@ -15,7 +15,7 @@
         [:hr]
         [:h4 "我的网络"]
         [:u {}
-         [:li [:a {:href "https://twitter.com/#!/livetang" :target "_blank"} "@livetang"]]
+         [:li [:a {:href "https://twitter.com/#!/livetang" :target "_blank"} "livetang@twitter"]]
          [:li [:a {:href "http://www.douban.com/people/itang/" :target "_blank"} "itang@douban"]]
          [:li [:a {:href "http://itang.iteye.com" :target "_blank"} "itang@iteye"]]]]]
       [:div.content {}

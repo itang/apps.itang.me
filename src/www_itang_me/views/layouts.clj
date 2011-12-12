@@ -38,7 +38,7 @@
   ([] (get-footer (get-app)))
   ([app]
     [:footer {}
-     [:p (str "&copy; www.itang.me 2011 | " (:version app))]]))
+     [:p (str "&copy; 2011 | " (:version app))]]))
 
 (defn default-layout
   "默认布局"

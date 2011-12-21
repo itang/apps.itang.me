@@ -1,7 +1,7 @@
 (ns libs.github-client
   (:require [clojure.string :as string]
-    [appengine-magic.services.url-fetch :as http]
-    [cheshire.core :as json]))
+            [appengine-magic.services.url-fetch :as http]
+            [cheshire.core :as json]))
 
 (def github-api-v3-url "https://api.github.com")
 (def DEFAULT-PAGE 1)
@@ -36,6 +36,18 @@
     (make-request method end-point positional query)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn- call-by-user [user page]
+  (api-call :get "/users/%s/watched" [user] {:page page :per-page 50}))
+
+;(defn- find-all-user-watching [user]
+;  (loop [ret [] page 1]
+;    (let [it (call-by-user user page)]
+;      (if (or (> page 2) (empty? it))
+;        ret
+;        (recur (concat ret it) (inc page))))))
+
+(defn- find-all-user-watching [user]
+  (apply concat (map #(call-by-user user %) (range 1 3))))
 
 (defn user-repos
   "List a user's repositories.
@@ -47,4 +59,5 @@
 (defn user-watching
   "List all the repositories that a user is watching."
   [user & [options]]
-  (api-call :get "/users/%s/watched" [user] options))
+  (find-all-user-watching user))
+

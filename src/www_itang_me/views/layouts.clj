@@ -1,12 +1,12 @@
 (ns www-itang-me.views.layouts
   (:use [hiccup core page-helpers]
-    [appengine-magic.services.user
-     :only (user-logged-in? current-user get-nickname get-email login-url logout-url)])
+        [appengine-magic.services.user
+         :only (user-logged-in? current-user get-nickname get-email login-url logout-url)])
   (:require [www-itang-me.auth :as auth]
-    [www-itang-me.config :as config])
+            [www-itang-me.config :as config])
   (:use mvc.view-helpers
-    [www-itang-me.utils :only (getstring)]
-    [www-itang-me.models.app :only (get-app)]))
+        [www-itang-me.utils :only (getstring)]
+        [www-itang-me.models.app :only (get-app)]))
 
 (defn get-topbar []
   [:div.topbar {}
@@ -21,7 +21,7 @@
        [:ul.dropdown-menu {}
         [:li [:a {:href "/apps/bookmarkers"} "Bookmarkers"]]
         [:li [:a {:href "/apps/todolist"} "Todolist"]]
-        [:li.divider]
+        [:li.divider ]
         ]]
       [:li [:a {:href "/mobile"} "Mobile"]]
       (when (auth/is-me?)
@@ -47,19 +47,20 @@
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body (html5
-     [:head [:meta {:name "description" :content (getstring options "description" "itang的Personal Website")}]
-      [:meta {:author "description" :content "itang - 唐古拉山"}]
-      [:title (getstring title " - " config/website-title)]
-      (include-lib-min-css "bootstrap" "1.4.0")
-      (include-app-css "main")
-      [:link {:rel "shortcut icon" :href "/public/app/images/favicon.ico"}]
-      (include-lib-min-js "underscore" "1.2.2")
-      (include-lib-min-js "underscore.string" "2.0.0")
-      (include-lib-min-js "jquery" "1.7.0")
-      (include-lib-js "handlebars" "1.0.0.beta.4")
-      (include-lib-js "bootstrap" "1.4.0" "-dropdown.js")]
-     [:body {}
-      (get-topbar)
-      [:div.container-fluid {}
-       content]])})
+           [:head [:meta {:name "description" :content (getstring options "description" "itang的Personal Website")}]
+            [:meta {:author "description" :content "itang - 唐古拉山"}]
+            [:title (getstring title " - " config/website-title)]
+            (include-lib-min-css "bootstrap" "1.4.0")
+            (include-app-css "main")
+            [:link {:rel "shortcut icon" :href "/public/app/images/favicon.ico"}]
+            (include-lib-js "roy" "0.1") ;; have include underscore, first it.
+            (include-lib-js "underscore" "1.2.2")
+            (include-lib-js "underscore.string" "2.0.0")
+            (include-lib-min-js "jquery" "1.7.0")
+            (include-lib-js "handlebars" "1.0.0.beta.4")
+            (include-lib-js "bootstrap" "1.4.0" "-dropdown.js")]
+           [:body {}
+            (get-topbar)
+            [:div.container-fluid {}
+             content]])})
 

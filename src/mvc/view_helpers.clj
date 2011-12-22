@@ -6,6 +6,19 @@
   [attributes script]
   [:script (merge {:type "text/javascript"} attributes) script])
 
+(defn roy-tag
+  [attributes script]
+  [:royscript (merge {:type "text/roy"} attributes) script])
+
+(defn include-roy [path]
+  [:royscript {:type "text/roy" :href path} nil])
+
+(defn include-app-roy
+  ([name]
+    (include-app-roy name ".roy"))
+  ([name ext]
+    (include-roy (str "/public/app/scripts/" name ext))))
+
 (defn- rule-path [prefix-path name version ext]
   (str prefix-path "/" name "-" version "/" name ext))
 

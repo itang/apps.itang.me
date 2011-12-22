@@ -1,8 +1,8 @@
 (ns www-itang-me.views.main-views
   (:use [hiccup core page-helpers])
   (:use mvc.view-helpers
-    www-itang-me.utils
-    www-itang-me.views.layouts))
+        www-itang-me.utils
+        www-itang-me.views.layouts))
 
 (defn index
   [hot-bookmarkers app]
@@ -12,7 +12,7 @@
        [:div.well {}
         [:h3 "\"做一个出色的码匠\""]
         [:div "itang/唐古拉山"]
-        [:hr]
+        [:hr ]
         [:h4 "我的网络"]
         [:u {}
          [:li [:a {:href "https://twitter.com/#!/livetang" :target "_blank"} "livetang@twitter"]]
@@ -44,6 +44,8 @@
         [:div.row {}
          ;;github widget
          (include-app-js "github-client")
+         (include-app-roy "github-client")
+         (include-app-js "roy-loader")
          [:div.span5 {}
           [:h3 "关注的github项目"]
           [:div {}
@@ -57,7 +59,7 @@
            [:a {:href "/projects" :class "btn pull-center" :target "_blank"} "更多"]]]
          [:div.span5 {}
           [:h3 "我的github项目"]
-          [:div [:ul#myrepos]]]]] ;;end section@github
+          [:div [:ul#myrepos ]]]]] ;;end section@github
        (get-footer app)])))
 
 

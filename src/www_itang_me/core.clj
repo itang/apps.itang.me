@@ -1,5 +1,6 @@
 (ns www-itang-me.core
-  (:use compojure.core)
+  (:use [compojure.core :only [defroutes GET POST ANY]]
+        [ring.middleware.params :only [wrap-params]])
   (:require [appengine-magic.core :as ae])
   (:use [mvc.controller-helpers])
   (:use [www-itang-me.controllers
@@ -38,4 +39,6 @@
   (ANY "*" _
     (Ok "输错网址了吧你?!")))
 
-(ae/def-appengine-app www-itang-me-app #'www-itang-me-app-handler)
+(def wrapped-handler (wrap-params www-itang-me-app-handler))
+
+(ae/def-appengine-app www-itang-me-app #'wrapped-handler)

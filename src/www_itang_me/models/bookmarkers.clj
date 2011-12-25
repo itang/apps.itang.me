@@ -27,6 +27,11 @@
          (Bookmarker. "sina" "sina" "http://news.sina.com.cn" 0 "娱乐" true)]]
     (ds/save! bookmarkers)))
 
+(defn add-bookmarker
+  "添加书签"
+  [name title url & {:keys [hits tags public] :or {hits 0 tags "default" public true} :as options}]
+  (ds/save! (Bookmarker. name title url hits tags public)))
+
 (defn inc-hits
   "点击量加1"
   [name]

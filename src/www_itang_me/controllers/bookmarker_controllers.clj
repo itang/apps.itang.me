@@ -3,7 +3,8 @@
   (:require [www-itang-me.models.bookmarkers :as bookmarkers]
             [www-itang-me.views.bookmarker-views :as views]
             [www-itang-me.auth :as auth])
-  (:use [mvc.controller-helpers :only (Json)]))
+  (:use [mvc.controller-helpers :only (Json)]
+        [www-itang-me.utils :only (empty-else)]))
 
 (defn bookmarker-routes
   []
@@ -12,6 +13,11 @@
       (views/index (if (auth/is-me?)
                      (bookmarkers/find-all-bookmarkers)
                      (bookmarkers/find-public-bookmarkers))))
+
+    (POST "/" [name title url] ;{{name "name" title "title" url "url"} :params}
+      (println name title url)
+      (let [bookmarker (bookmarkers/add-bookmarker name (empty-else title name) url)]
+        (Json {:success true :message "添加成功!" :data bookmarker})))
 
     (POST "/:name/inc_hits" [name]
       (do

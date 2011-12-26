@@ -2,7 +2,8 @@
   (:use [compojure.core :only [defroutes GET POST ANY]]
         [ring.middleware.params :only [wrap-params]])
   (:require [appengine-magic.core :as ae])
-  (:use [mvc.controller-helpers])
+  (:use [mvc.controller-helpers]
+        )
   (:use [www-itang-me.controllers
          main-controllers
          bookmarker-controllers
@@ -39,6 +40,15 @@
   (ANY "*" _
     (Ok "输错网址了吧你?!")))
 
-(def wrapped-handler (wrap-params www-itang-me-app-handler))
+(defn dev-mode? []
+  (= "dev" (System/getenv "SERVER_SOFTWARE")))
+
+;(defn- wrap-route-updating [handler]
+;  (if (dev-mode?)
+;    (wrap-reload-modified handler ["src"])
+;    handler))
+
+(def wrapped-handler (-> www-itang-me-app-handler
+                       (wrap-params)))
 
 (ae/def-appengine-app www-itang-me-app #'wrapped-handler)

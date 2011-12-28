@@ -1,11 +1,24 @@
 (ns www-itang-me.views.bookmarker-views
   (:use [hiccup core page-helpers]
-    [mvc.view-helpers :only (include-app-js)]
-    [www-itang-me.views.layouts :only (default-layout get-footer)]))
+        [mvc.view-helpers :only (include-app-js)]
+        [www-itang-me.views.layouts :only (default-layout-template get-footer)]))
+
+(defn- bookmarkers-layout
+  "bookmarkers布局"
+  [content & options]
+  (let [fills
+        (list
+          [:div.container-fluid {}
+           [:div {:class "input pull-left"}
+            [:input.xlarge {:id "address-bar" :name "url" :size= "100" :type "text"}]]
+           [:div.pull-left {} [:button#go {:class "btn primary"} "GO"]
+            [:button#fgo {:class "btn primary"} "FGO"]]]
+          [:div.container-fluid {} content])]
+    (apply default-layout-template (cons fills options))))
 
 (defn index
   [bookmarkers & [home-site]]
-  (default-layout
+  (bookmarkers-layout
     (list
       (include-app-js "bookmarkers")
       [:div.sidebar {}
@@ -15,8 +28,7 @@
         [:u {}
          (for [site bookmarkers]
            [:li {}
-            [:a.sitelink
-             {:href (:url site) :id (:id site) :target "_blank" :title (:tags site) :data-it (:name site)}
+            [:a.sitelink {:href (:url site) :id (:id site) :target "_blank" :title (:tags site) :data-it (:name site)}
              (:title site)]
             [:small {}
              "&nbsp;("

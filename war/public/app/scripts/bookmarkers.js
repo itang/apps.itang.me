@@ -4,6 +4,10 @@
  * require("jquery", "underscore")
  */
 (function () {//START
+  function showPage(url) {
+    $("#frameWindow").attr("src", url);
+  }
+
   $(function () {
     //refresh click事件 -> iframe reload
     $('#refresh').click(function () {
@@ -36,10 +40,21 @@
       }
 
       //刷新
-      $("#frameWindow").attr("src", it.href);
+      showPage(it.href);
+      //address bar
+      $("#address-bar").attr('value', it.href);
 
       event.preventDefault();
       event.stopPropagation();
+    });
+
+    $('#go').click(function () {
+      showPage($("#address-bar").attr('value'));
+    });
+
+    $('#fgo').click(function () {
+      var url = "/apps/proxy?url=" + $("#address-bar").attr('value');
+      showPage(url);
     });
 
     //自动打开第一个链接

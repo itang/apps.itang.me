@@ -11,7 +11,7 @@
       [:div.sidebar {}
        [:div.well {}
         [:h3 "\"做一个出色的码匠\""]
-        [:div "itang/唐古拉山"]
+        [:div.pull-right "------ itang"]
         [:hr ]
         [:h4 "我的网络"]
         [:u {}

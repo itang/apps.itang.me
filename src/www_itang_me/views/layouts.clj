@@ -38,10 +38,14 @@
   ([] (get-footer (get-app)))
   ([app]
     [:footer {}
-     [:p (str "&copy; 2011 | " (:version app))]]))
+     [:p (str "&copy; 2011 | " (:version app) " | Powered by ")
+      [:a {:href "http://www.clojure.org" :target "_blank"} "Clojure"]
+      " and "
+      [:a {:href "http://code.google.com/appengine" :target "_blank"} "GAE"]]]))
 
-(defn default-layout
-  "默认布局"
+
+(defn default-layout-template
+  "默认布局模板"
   ;;[content & {:keys [title] :or {title "爱唐网"} :as options}]
   [content & {:keys [title] :as options}]
   {:status 200
@@ -61,6 +65,13 @@
             (include-lib-js "bootstrap" "1.4.0" "-dropdown.js")]
            [:body {}
             (get-topbar)
-            [:div.container-fluid {}
-             content]])})
+            content])})
+
+(defn default-layout
+  "默认布局"
+  [content & options]
+ (let [fills [:div.container-fluid {} content]]
+  (apply default-layout-template (cons fills options))))
+
+
 

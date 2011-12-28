@@ -8,7 +8,8 @@
          main-controllers
          bookmarker-controllers
          githubclient-controllers
-         admin-controllers]))
+         admin-controllers
+         proxy-controllers]))
 
 (defroutes www-itang-me-app-handler
   (main-routes)
@@ -18,6 +19,8 @@
   (githubclient-routes)
 
   (admin-routes)
+
+  (proxy-routes)
 
   (GET "/blog" _
     (Todo "Blog"))

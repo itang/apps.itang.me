@@ -12,6 +12,11 @@
       (.setTimeZone formatter myTimeZone)
       (.format formatter (Date.)))))
 
+(defn name-from-email [^String email]
+  (if email
+    (first (-> email (.split "@")))
+    ""))
+
 (defn getstring
   ([value link-symbol target]
     (if value
@@ -36,4 +41,6 @@
 
 (defmacro empty-else [obj default-value-expr]
   `(if-empty ~obj ~default-value-expr ~obj))
+
+
 

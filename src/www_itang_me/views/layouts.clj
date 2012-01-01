@@ -38,7 +38,7 @@
   ([] (get-footer (get-app)))
   ([app]
     [:footer {}
-     [:p (str "&copy; 2011 | " (:version app) " | Powered by ")
+     [:p (str "&copy; 2011-2012 | " (:version app) " | Powered by ")
       [:a {:href "http://www.clojure.org" :target "_blank"} "Clojure"]
       " and "
       [:a {:href "http://code.google.com/appengine" :target "_blank"} "GAE"]]]))

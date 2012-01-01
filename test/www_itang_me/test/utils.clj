@@ -28,3 +28,11 @@
   (getstring {:name "a"} :name1 "-" "b") => "b"
   (getstring {:name "a"} "name1" "-" "b") => "b")
 
+(fact "name from email"
+  (name-from-email "live.tang@gmail.com") => "live.tang"
+  (name-from-email "live.tang@") => "live.tang"
+  (name-from-email "live.tang") => "live.tang"
+  (name-from-email "live.tanggmail.com") => "live.tanggmail.com"
+  (name-from-email "") => ""
+  (name-from-email nil) => "")
+

@@ -18,7 +18,12 @@
   []
   (not (empty? (ds/query :kind App))))
 
+(defn update-app-version
+  "更新应用版本信息"
+  [name version]
+  (ds/save! (assoc (get-app) :version version)))
+
 (defn reset-app
- "重置应用配置"
+  "重置应用配置"
   []
   (ds/delete! (ds/query :kind App)))

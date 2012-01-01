@@ -1,11 +1,9 @@
 (ns www-itang-me.controllers.proxy-controllers
   (:import org.apache.commons.codec.binary.Base64)
   (:use [compojure.core :only [context GET]]
-        [clojure.tools.logging :only [info error]])
-  (:require [appengine-magic.services.url-fetch :as http]
-            [clojure.java.io :as io])
-  (:use [mvc.controller-helpers :only [Ok]]
-        [www-itang-me.utils :only [empty-else]]))
+        [clojure.tools.logging :only [info]])
+  (:require [appengine-magic.services.url-fetch :as http])
+  (:use [mvc.controller-helpers :only [Ok]]))
 
 (defn- fetch-page [url]
   (letfn [(get-page-content [url]

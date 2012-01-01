@@ -1,28 +1,31 @@
 (ns www-itang-me.controllers.proxy-controllers
-  (:use compojure.core)
-  (:require [www-itang-me.auth :as auth]
-            [appengine-magic.services.url-fetch :as http]
+  (:import org.apache.commons.codec.binary.Base64)
+  (:use [compojure.core :only [context GET]]
+        [clojure.tools.logging :only [info error]])
+  (:require [appengine-magic.services.url-fetch :as http]
             [clojure.java.io :as io])
-  (:use [www-itang-me.utils :only (empty-else)]))
-
-(defn- get-page-content [url]
-  (String. (:content (http/fetch url :method :get )) "UTF-8"))
-
-;;TODO
-(defn- wrap-css [content]
-  content)
-
-;;TODO
-(defn- wrap-js [content]
-  content)
+  (:use [mvc.controller-helpers :only [Ok]]
+        [www-itang-me.utils :only [empty-else]]))
 
 (defn- fetch-page [url]
-  (let [content (get-page-content url)]
-    ((comp wrap-css wrap-js) content)))
+  (letfn [(get-page-content [url]
+            (String.
+              (:content (http/fetch url :method :get )) "UTF-8"))
+          (wrap-js [content] content)
+          (wrap-css [content] content)]
+    (let [content (get-page-content url)]
+      (-> content
+        wrap-js
+        wrap-css))))
+
+(defn- do-proxy [url]
+  (Ok (fetch-page url)))
 
 (defn proxy-routes []
   (context "/apps/proxy" _
     (GET "/" [url]
-      {:status 200
-       :headers {"Content-Type" "text/html"}
-       :body (fetch-page url)})))
+      (let [decode-url
+            (String. (Base64/decodeBase64 (apply str (reverse url))))]
+        (do
+          (info "encode url:" url "\ndecode url:" decode-url)
+          (do-proxy decode-url))))))

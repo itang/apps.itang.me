@@ -53,8 +53,11 @@
     });
 
     $('#fgo').click(function () {
-      var url = "/apps/proxy?url=" + $("#address-bar").attr('value');
-      showPage(url);
+      var processURL = "/apps/proxy?url="
+      var proxyURL = $("#address-bar").attr('value');
+      //base64 -> reverse
+      var encodeBase64Url = processURL + _.str.reverse($.base64.encode(proxyURL));
+      showPage(encodeBase64Url);
     });
 
     //自动打开第一个链接

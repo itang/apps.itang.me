@@ -1,7 +1,7 @@
 (ns www-itang-me.views.bookmarker-views
   (:use [hiccup core page-helpers]
-        [mvc.view-helpers :only (include-app-js)]
-        [www-itang-me.views.layouts :only (default-layout-template get-footer)]))
+        [mvc.view-helpers :only [include-app-js include-lib-min-js]]
+        [www-itang-me.views.layouts :only [default-layout-template get-footer]]))
 
 (defn- bookmarkers-layout
   "bookmarkers布局"
@@ -20,6 +20,7 @@
   [bookmarkers & [home-site]]
   (bookmarkers-layout
     (list
+      (include-lib-min-js "jquery.base64" "1.0")
       (include-app-js "bookmarkers")
       [:div.sidebar {}
        [:div.well {}

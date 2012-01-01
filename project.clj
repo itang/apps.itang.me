@@ -9,6 +9,7 @@
                  [hiccup "0.3.8"]
                  [cheshire "2.0.4"]
                  [log4j/log4j "1.2.16"]
+                 [commons-codec/commons-codec "1.6"]
                  ;[tentacles "0.1.0"]
                  ]
   :dev-dependencies [[appengine-magic "0.4.6"]

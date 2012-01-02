@@ -49,6 +49,14 @@
 (defn- find-all-user-watching [user]
   (apply concat (map #(call-by-user user %) (range 1 3))))
 
+(defn find-all-watching-projects
+  [user]
+  (loop [ret [] page 1]
+    (let [page-data (try (call-by-user user page) (catch Exception e (println e)))]
+      (if (empty? page-data)
+        ret
+        (recur (concat ret page-data) (inc page))))))
+
 (defn user-repos
   "List a user's repositories.
    Options are:

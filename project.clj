@@ -15,7 +15,8 @@
   :dev-dependencies [[appengine-magic "0.4.6"]
                      [lein-eclipse "1.0.0"]
                      [midje "1.3.0"]
-                     [lein-midje "1.0.7"]]
+                     [lein-midje "1.0.7"]
+                     [swank-clojure "1.3.4"]]
   :aot [www-itang-me.app_servlet])
 
 

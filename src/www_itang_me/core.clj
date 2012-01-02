@@ -2,10 +2,10 @@
   (:use [compojure.core :only [defroutes GET POST ANY]]
         [ring.middleware.params :only [wrap-params]])
   (:require [appengine-magic.core :as ae])
-  (:use [mvc.controller-helpers]
-        )
+  (:use [mvc.controller-helpers])
   (:use [www-itang-me.controllers
          main-controllers
+         project-controllers
          bookmarker-controllers
          githubclient-controllers
          admin-controllers
@@ -14,6 +14,8 @@
 
 (defroutes www-itang-me-app-handler
   (main-routes)
+
+  (project-routes)
 
   (bookmarker-routes)
 
@@ -27,9 +29,6 @@
 
   (GET "/blog" _
     (Todo "Blog"))
-
-  (GET "/projects" _
-    (Todo "Projects"))
 
   (GET "/apps" _
     (Todo "Applications"))

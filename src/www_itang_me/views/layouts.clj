@@ -17,11 +17,11 @@
   ([name link]
      (menu name link {}))
   ([name link attr]
-     (let [a-attr (merge attr {:href link})]
-       [:li (if (match-uri (:uri (request)) link)
-              {:class "active"}
-              {})
-        [:a a-attr name]])))
+     (let [a-attr (merge attr {:href link})
+           li-attr (if (match-uri (:uri (request)) link)
+                     {:class "active"}
+                     nil) ]
+       [:li li-attr [:a a-attr name]])))
 
 (defn get-topbar []
   [:div.topbar {}

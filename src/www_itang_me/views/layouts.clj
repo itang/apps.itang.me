@@ -37,7 +37,7 @@
         (menu "Bookmarkers" "/apps/bookmarkers")
         (menu "Todolist" "/apps/todolist")
         [:li.divider ]]]
-      (menu "Moboile" "/mobile")
+      (menu "Mobile" "/mobile")
       (menu "About" "/about")
       (when (auth/is-me?)
         (menu "hg.itang.me" "http://hg.itang.me" {:target "_blank"}))]

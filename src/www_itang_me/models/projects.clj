@@ -49,5 +49,6 @@
   "顶，增加关注度"
   [name]
   (if-let [project (find-by-name name)]
-    ;(ds/save! (assoc project :attention (inc (:attention project))))
-    (ds/save! (update-in project [:attention] (partial + 1)))))
+                                        ;(ds/save! (assoc project :attention (inc (:attention project))))
+                                        ;(ds/save! (update-in project [:attention] (partial + 1)))
+    (ds/save! (update-in project [:attention] inc))))

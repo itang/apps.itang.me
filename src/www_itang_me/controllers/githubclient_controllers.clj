@@ -1,8 +1,9 @@
 (ns www-itang-me.controllers.githubclient-controllers
   (:use compojure.core
-    [clojure.tools.logging :only (info warn error)]
-    [mvc.controller-helpers :only (success-message failture-message Json)])
-  (:require [libs.github-client :as github]))
+        [clojure.tools.logging :only (info warn error)]
+        [mvc.controller-helpers :only (success-message failture-message Json)])
+  (:require [libs.github-client :as github]
+            [www-itang-me.models.projects :as Project]))
 
 (defn- view-json-page
   [call]
@@ -16,7 +17,7 @@
   "github client路由"
   []
   (context "/github" _
-    (GET "/users/:user/repos/:page/:per-page" [user page per-page]
-      (view-json-page #(github/user-repos user {:page page :per-page per-page})))
-    (GET "/users/:user/watched/:page/:per-page" [user page per-page]
-      (view-json-page #(github/user-watching user {:page page :per-page per-page})))))
+           (GET "/users/:user/repos/:page/:per-page" [user page per-page]
+                (view-json-page #(github/user-repos user {:page page :per-page per-page})))
+           (GET "/users/:user/watched/:page/:per-page" [user page per-page]
+                (Json (success-message "seccess" (take 10 (Project/projects)))))))

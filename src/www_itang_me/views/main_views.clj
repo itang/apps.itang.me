@@ -52,11 +52,11 @@
            [:ul#mywatched {}
             (javascript-tag-ext {:id "repos-template" :type "text/x-handlebars-template"}
               [:li {}
-               "{{index}} &nbsp;"
-               [:a {:href "{{html_url}}" :title "{{description}}\n{{updated_at}}" :target "_blank"}
+               "{{index}}&nbsp;"
+               [:a {:href "{{html_url}}{{website}}" :title "{{description}}\n{{updated_at}}" :target "_blank"}
                 "{{name}}"]
                [:small "({{language}})"]])]
-           [:a {:href "/projects" :class "btn pull-center" :target "_blank"} "更多"]]]
+           [:a {:href "/projects" :class "btn pull-center"} "更多"]]]
          [:div.span5 {}
           [:h3 "我的github项目"]
           [:div [:ul#myrepos ]]]]] ;;end section@github

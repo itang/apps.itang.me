@@ -2,7 +2,8 @@
   (:use [compojure.core :only [defroutes GET POST ANY]]
         [ring.middleware.params :only [wrap-params]])
   (:require [appengine-magic.core :as ae])
-  (:use [mvc.controller-helpers])
+  (:use [mvc.controller-helpers]
+        [mvc.scopes :only [*request*]])
   (:use [www-itang-me.controllers
          main-controllers
          project-controllers
@@ -48,12 +49,19 @@
 (defn dev-mode? []
   (= "dev" (System/getenv "SERVER_SOFTWARE")))
 
+(defn my-filter [handler]
+  (fn [request]
+    (binding [*request* request]
+      (handler request))))
+
 ;(defn- wrap-route-updating [handler]
 ;  (if (dev-mode?)
 ;    (wrap-reload-modified handler ["src"])
 ;    handler))
 
 (def wrapped-handler (-> www-itang-me-app-handler
-                       (wrap-params)))
+                         (wrap-params)
+                         (my-filter)))
+
 
 (ae/def-appengine-app www-itang-me-app #'wrapped-handler)

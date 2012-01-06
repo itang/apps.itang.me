@@ -2,7 +2,8 @@
   (:import org.apache.commons.codec.binary.Base64)
   (:use [compojure.core :only [context GET]]
         [clojure.tools.logging :only [info]])
-  (:require [appengine-magic.services.url-fetch :as http])
+  (:require [clojure.string :as string]
+            [appengine-magic.services.url-fetch :as http])
   (:use [mvc.controller-helpers :only [Ok]]))
 
 (defn- fetch-page [url]
@@ -22,8 +23,9 @@
 (defn proxy-routes []
   (context "/apps/proxy" _
     (GET "/" [url]
-      (let [decode-url
-            (String. (Base64/decodeBase64 (apply str (reverse url))))]
+         (let [decode-url
+               ;;(apply str (reverse url))
+            (String. (Base64/decodeBase64 (string/reverse url)))]
         (do
           (info "encode url:" url "\ndecode url:" decode-url)
           (do-proxy decode-url))))))

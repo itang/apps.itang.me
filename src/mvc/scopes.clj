@@ -1,5 +1,5 @@
 (ns mvc.scopes)
 
-(def ^:dynamic *request*)
+(defonce ^:dynamic *request* nil)
 
 (defn request [] *request*)

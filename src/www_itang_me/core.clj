@@ -49,7 +49,7 @@
 (defn dev-mode? []
   (= "dev" (System/getenv "SERVER_SOFTWARE")))
 
-(defn my-filter [handler]
+(defn wrap-request-map [handler]
   (fn [request]
     (binding [*request* request]
       (handler request))))
@@ -61,7 +61,7 @@
 
 (def wrapped-handler (-> www-itang-me-app-handler
                          (wrap-params)
-                         (my-filter)))
+                         (wrap-request-map)))
 
 
 (ae/def-appengine-app www-itang-me-app #'wrapped-handler)

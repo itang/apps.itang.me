@@ -33,7 +33,7 @@
              [:li [:a {:href (:url site) :target "_blank" :title (:tags site)} (:title site)]])]
           [:a {:href "/apps/bookmarkers" :class "btn pull-center"} "更多"]]
          [:div.span5 {}
-          [:h3 "最新唠叨"]
+          [:h3 "最新虾说"]
           [:div {}
            [:p (now)]
            [:a {:href "#" :class "btn pull-center"} "更多"]]]]]

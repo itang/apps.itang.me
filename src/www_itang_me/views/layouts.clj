@@ -15,13 +15,13 @@
 
 (defn- menu
   ([name link]
-     (menu name link {}))
+    (menu name link {}))
   ([name link attr]
-     (let [a-attr (merge attr {:href link})
-           li-attr (if (match-uri (:uri (request)) link)
-                     {:class "active"}
-                     nil) ]
-       [:li li-attr [:a a-attr name]])))
+    (let [a-attr (merge attr {:href link})
+          li-attr (if (match-uri (:uri (request)) link)
+        {:class "active"}
+        nil)]
+      [:li li-attr [:a a-attr name]])))
 
 (defn get-topbar []
   [:div.topbar {}
@@ -36,7 +36,8 @@
        [:ul.dropdown-menu {}
         (menu "Bookmarkers" "/apps/bookmarkers")
         (menu "Todolist" "/apps/todolist")
-        [:li.divider ]]]
+        [:li.divider ]
+        (menu "Shuo" "/apps/shuo")]]
       (menu "Mobile" "/mobile")
       (menu "About" "/about")
       (when (auth/is-me?)
@@ -46,17 +47,21 @@
         (let [nickname (get-nickname (current-user))
               email (get-email (current-user))]
           (list [:a {:href (str "/users/" nickname)} nickname]
-                "&nbsp;" [:a {:href (logout-url)} "Sign out"]))
+            "&nbsp;" [:a {:href (logout-url)} "Sign out"]))
         [:a {:href (login-url)} "Sign in"])]]]])
 
 (defn get-footer
   ([] (get-footer (get-app)))
   ([app]
-     [:footer {}
-      [:p (str "&copy; 2011-2012 | " (:version app) " | Powered by ")
+    [:footer {}
+     [:div [:span "&copy;&nbsp;"
+            [:b "itang"]
+            "&nbsp;2011-2012"]
+      [:span " | Powered by "
        [:a {:href "http://www.clojure.org" :target "_blank"} "Clojure"]
        " and "
-       [:a {:href "http://code.google.com/appengine" :target "_blank"} "GAE"]]]))
+       [:a {:href "http://code.google.com/appengine" :target "_blank"} "GAE"]
+       ",&nbsp;v" (:version app)]]]))
 
 (defn default-layout-template
   "默认布局模板"
@@ -65,22 +70,22 @@
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body (html5
-          [:head [:meta {:name "description"
-                         :content (getstring options "description" "itang的Personal Website")}]
-           [:meta {:author "description" :content "itang - 唐古拉山"}]
-           [:title (getstring title " - " config/website-title)]
-           (include-lib-min-css "bootstrap" "1.4.0")
-           (include-app-css "main")
-           [:link {:rel "shortcut icon" :href "/public/app/images/favicon.ico"}]
-           (include-lib-js "roy" "0.1") ;; have include underscore, first it.
-           (include-lib-js "underscore" "1.2.2")
-           (include-lib-js "underscore.string" "2.0.0")
-           (include-lib-min-js "jquery" "1.7.0")
-           (include-lib-js "handlebars" "1.0.0.beta.4")
-           (include-lib-js "bootstrap" "1.4.0" "-dropdown.js")]
-          [:body {}
-           (get-topbar)
-           content])})
+           [:head [:meta {:name "description"
+                          :content (getstring options "description" "itang的Personal Website")}]
+            [:meta {:author "description" :content "itang - 唐古拉山"}]
+            [:title (getstring title " - " config/website-title)]
+            (include-lib-min-css "bootstrap" "1.4.0")
+            (include-app-css "main")
+            [:link {:rel "shortcut icon" :href "/public/app/images/favicon.ico"}]
+            (include-lib-js "roy" "0.1") ;; have include underscore, first it.
+            (include-lib-js "underscore" "1.2.2")
+            (include-lib-js "underscore.string" "2.0.0")
+            (include-lib-min-js "jquery" "1.7.0")
+            (include-lib-js "handlebars" "1.0.0.beta.4")
+            (include-lib-js "bootstrap" "1.4.0" "-dropdown.js")]
+           [:body {}
+            (get-topbar)
+            content])})
 
 (defn default-layout
   "默认布局"

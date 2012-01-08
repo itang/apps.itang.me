@@ -14,6 +14,9 @@
          proxy-controllers
          setting-controllers]))
 
+(defn- todo [message]
+  (Html-by-template "todo" :message message))
+
 (defroutes www-itang-me-app-handler
   (main-routes)
 
@@ -29,23 +32,23 @@
 
   (setting-routes)
 
-  (GET "/test" _
-    (Html-by-template "main" :name "itang"))
-
   (GET "/blog" _
-    (Todo "Blog"))
+    (todo "Blog"))
 
   (GET "/apps" _
-    (Todo "Applications"))
+    (todo "Applications"))
 
   (GET "/apps/todolist" _
-    (Todo "Todolist"))
+    (todo "Todolist"))
+
+  (GET "/apps/shuo" _
+    (todo "虾说"))
 
   (GET "/mobile" _
-    (Todo "移动版"))
+    (todo "移动版"))
 
   (GET "/about" _
-    (Todo "About me"))
+    (todo "About me"))
 
   (ANY "*" _
     (Ok "输错网址了吧你?!")))

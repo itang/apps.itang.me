@@ -6,8 +6,6 @@
                  [log4j/log4j "1.2.16"]
                  [commons-codec/commons-codec "1.6"]
                  [compojure "1.0.0"]
-                 ;[ring-reload-modified "0.1.1"]
-                 ;[enlive "1.0.0"]
                  [hiccup "0.3.8"]
                  [cheshire "2.0.4"]
                  [stencil "0.2.0"]]

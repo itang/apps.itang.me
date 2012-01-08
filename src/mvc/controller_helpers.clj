@@ -1,14 +1,9 @@
 (ns mvc.controller-helpers
   (:use [hiccup.page-helpers :only (html5)])
-  (:require [cheshire.core :as json]))
+  (:require [cheshire.core :as json])
+  (:use [mvc.templates :only [stencil-template]]))
 
-;; just as if-not
-;(defmacro if-nil
-;  ([test then] `(if-nil ~test ~then nil))
-;  ([test then else]
-;    `(if (= nil ~test) ~then ~else)))
-
-(defstruct Message :success :message :data :detailMessage)
+(defstruct Message :success :message :data :detailMessage )
 
 (defn as-message [success message data detailMessage]
   (struct-map Message :success success :message message :data data :detailMessage detailMessage))
@@ -31,9 +26,10 @@
 
 (defn Result
   [body & [options]]
-  (let [default-options {:status 200
-                         :headers {"Content-Type" "text/html"}
-                         :body body}]
+  (let [default-options
+        {:status 200
+         :headers {"Content-Type" "text/html"}
+         :body body}]
     (if-not options
       default-options
       (merge default-options options))))
@@ -41,6 +37,11 @@
 (defn Html
   [body]
   (Result body))
+
+(defn Html-by-template [tpl-name & more]
+  (try
+    (Html (apply stencil-template tpl-name more))
+    (catch Exception e (Html (.getMessage e)))))
 
 (defn Ok
   [body]
@@ -56,7 +57,6 @@
   "todo page view"
   [todo-item]
   (Ok (html5
-    [:head
-     [:title "TODO"]]
-    [:body {}
-     [:h1 (str "@TODO: " todo-item)]])))
+        [:head [:title "TODO"]]
+        [:body {}
+         [:h1 (str "@TODO: " todo-item)]])))

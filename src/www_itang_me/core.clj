@@ -3,7 +3,8 @@
         [ring.middleware.params :only [wrap-params]])
   (:require [appengine-magic.core :as ae])
   (:use [mvc.controller-helpers]
-        [mvc.scopes :only [*request*]])
+        [mvc.scopes :only [*request*]]
+        [mvc.controller-helpers :only [Html-by-template]])
   (:use [www-itang-me.controllers
          main-controllers
          project-controllers
@@ -27,6 +28,9 @@
   (proxy-routes)
 
   (setting-routes)
+
+  (GET "/test" _
+    (Html-by-template "main" :name "itang"))
 
   (GET "/blog" _
     (Todo "Blog"))
@@ -60,8 +64,8 @@
 ;    handler))
 
 (def wrapped-handler (-> www-itang-me-app-handler
-                         (wrap-params)
-                         (wrap-request-map)))
+                       (wrap-params)
+                       (wrap-request-map)))
 
 
 (ae/def-appengine-app www-itang-me-app #'wrapped-handler)

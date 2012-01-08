@@ -689,7 +689,7 @@ Handlebars.log = function(level, str) { Handlebars.logger.log(level, str); };
   };
 
 })();;
-// libs/handlebars/utils.js
+// libs/handlebars/cljtang.js
 Handlebars.Exception = function(message) {
   var tmp = Error.prototype.constructor.apply(this, arguments);
 

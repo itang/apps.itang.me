@@ -39,16 +39,6 @@
 (defn- call-by-user [user page]
   (api-call :get "/users/%s/watched" [user] {:page page :per-page 50}))
 
-;(defn- find-all-user-watching [user]
-;  (loop [ret [] page 1]
-;    (let [it (call-by-user user page)]
-;      (if (or (> page 2) (empty? it))
-;        ret
-;        (recur (concat ret it) (inc page))))))
-
-(defn- find-all-user-watching [user]
-  (apply concat (map #(call-by-user user %) (range 1 3))))
-
 (defn find-all-watching-projects
   [user]
   (loop [ret [] page 1]
@@ -67,5 +57,5 @@
 (defn user-watching
   "List all the repositories that a user is watching."
   [user & [options]]
-  (find-all-user-watching user))
+  (find-all-watching-projects user))
 

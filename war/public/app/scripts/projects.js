@@ -23,5 +23,18 @@
         }
       });
     });
+    
+    $("#btnSync").click(function(){
+      $.ajax({
+        url: "/projects/sync",
+        type: "POST",
+        dataType: "json",
+        success: function(result){
+          if(result.success){
+            alert("同步成功");
+          }
+        }
+      });
+    });
   });
 })(jQuery);

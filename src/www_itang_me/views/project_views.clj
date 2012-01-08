@@ -1,5 +1,6 @@
 (ns www-itang-me.views.project-views
   (:use [hiccup core page-helpers])
+  (:require [www-itang-me.auth :as auth])
   (:use mvc.view-helpers
         www-itang-me.utils
         www-itang-me.views.layouts))
@@ -10,6 +11,8 @@
     (list
      (include-lib-min-js "jquery.tablesorter" "2.0.5")
      (include-app-js "projects")
+     (when (auth/is-me?)
+       [:button#btnSync {:class "btn primary"} "同步"])
      [:ul.tabs {}
       [:li.active [:a {:href "#by_updated"} "关注的github项目"]]
       [:li [:a {:href "#by_group"} "按语言分组浏览(todo)"]]

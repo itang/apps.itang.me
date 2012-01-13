@@ -36,6 +36,13 @@
     ;(ds/save! (update-in project [:attention] (partial + 1)))
     (ds/save! (update-in project [:attention ] inc))))
 
+(defn remove-project
+  "清除项目"
+  [name]
+  (let [project (find-by-name name)]
+    (ds/delete! project)
+    project))
+
 (defn- new-project-from-gp [w]
   (Project. (:name w)
     (:author w)
@@ -67,4 +74,3 @@
           (ds/save! (update-project-from-gp project watching-project)))
         (do (info "add" name)
           (ds/save! (new-project-from-gp watching-project)))))))
-

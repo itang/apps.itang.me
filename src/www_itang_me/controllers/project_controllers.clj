@@ -1,5 +1,5 @@
 (ns www-itang-me.controllers.project-controllers
-  (:use [compojure.core :only [context GET POST]])
+  (:use [compojure.core :only [context GET POST DELETE]])
   (:require [www-itang-me.models.projects :as Project]
             [www-itang-me.views.project-views :as views])
   (:use [mvc.controller-helpers :only (Json)]
@@ -10,6 +10,10 @@
   (context "/projects" _
     (GET "/" _
       (views/index (Project/projects)))
+
+    (DELETE "/:name" [name]
+      (let [p (Project/remove-project name)]
+        (Json {:success true :message "移除项目成功!" :data p})))
 
     (POST "/ding/:name" [name]
       (let [project (Project/ding name)]

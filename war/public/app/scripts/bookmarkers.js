@@ -9,6 +9,12 @@
   }
 
   $(function () {
+    $('#address-bar').focus(function(){
+      $(this).select();
+    }).mouseup(function(e){ //hacked for chrome :see http://stackoverflow.com/questions/1269722/selecting-text-on-focus-using-jquery-not-working-in-safari-and-chrome
+      e.preventDefault();
+    });
+
     //refresh click事件 -> iframe reload
     $('#refresh').click(function () {
       var iframe = $("#frameWindow");

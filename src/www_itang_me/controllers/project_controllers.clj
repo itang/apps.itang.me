@@ -9,7 +9,9 @@
   []
   (context "/projects" _
     (GET "/" _
-      (views/index (Project/projects)))
+      (views/index
+        (Project/projects)
+        (Project/project-sync-logs)))
 
     (DELETE "/:name" [name]
       (let [p (Project/remove-project name)]
@@ -22,6 +24,7 @@
           (Json {:success false :message "操作失败!"}))))
 
     (POST "/sync" _
-      (do
-        (let [projects (Project/sync-watching-projects-from-github "itang")]
+      (let [projects (Project/sync-watching-projects-from-github "itang")]
+        (do
+          (Project/add-sync-log)
           (Json {:success true :message "同步成功!" :data projects}))))))

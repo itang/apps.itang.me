@@ -44,7 +44,8 @@
     project))
 
 (defn- new-project-from-gp [w]
-  (Project. (:name w)
+  (Project.
+    (:name w)
     (:author w)
     (:created_at w)
     (:updated_at w)
@@ -74,3 +75,28 @@
           (ds/save! (update-project-from-gp project watching-project)))
         (do (info "add" name)
           (ds/save! (new-project-from-gp watching-project)))))))
+
+(ds/defentity ProjectSyncLog
+  [^:key sync_at
+   updates ;更新数
+   adds ;新增数
+   removes ; 删除数
+   from ; 同步源
+   ])
+
+(defn project-sync-logs
+  []
+  (ds/query :kind ProjectSyncLog :sort [[:sync_at :dsc ]]))
+
+(defn add-sync-log
+  [& {:keys [sync_at updates adds removes from]
+      :or {sync_at (utils/now) updates 0 removes 0 from "github"}}]
+  (let [log
+        (ProjectSyncLog.
+          sync_at
+          updates
+          adds
+          removes
+          from)]
+    (ds/save! log)
+    log))

@@ -1,9 +1,9 @@
 (ns www-itang-me.controllers.project-controllers
-  (:use [compojure.core :only [context GET POST DELETE]])
+  (:use [compojure.core :only [context GET POST DELETE]]
+        [cljtang.lang :only (empty-else)])
   (:require [www-itang-me.models.projects :as Project]
             [www-itang-me.views.project-views :as views])
-  (:use [mvc.controller-helpers :only (Json)]
-        [www-itang-me.utils :only (empty-else)]))
+  (:use [mvc.controller-helpers :only (Json)]))
 
 (defn project-routes
   []

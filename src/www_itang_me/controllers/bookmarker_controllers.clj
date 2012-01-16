@@ -1,10 +1,10 @@
 (ns www-itang-me.controllers.bookmarker-controllers
-  (:use compojure.core)
+  (:use compojure.core
+        [cljtang.lang :only (empty-else)])
   (:require [www-itang-me.models.bookmarkers :as bookmarkers]
             [www-itang-me.views.bookmarker-views :as views]
             [www-itang-me.auth :as auth])
-  (:use [mvc.controller-helpers :only (Json)]
-        [www-itang-me.utils :only (empty-else)]))
+  (:use [mvc.controller-helpers :only (Json)]))
 
 (defn bookmarker-routes
   []

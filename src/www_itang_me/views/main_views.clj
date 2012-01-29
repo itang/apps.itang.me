@@ -47,7 +47,7 @@
          (include-app-roy "github-client")
          (include-app-js "roy-loader")
          [:div.span5 {}
-          [:h3 "关注的github项目"]
+          [:h3 "关注的项目"]
           [:div {}
            [:ul#mywatched {}
             (javascript-tag-ext {:id "repos-template" :type "text/x-handlebars-template"}
@@ -58,7 +58,7 @@
                [:small "({{language}})"]])]
            [:a {:href "/projects" :class "btn pull-center"} "更多"]]]
          [:div.span5 {}
-          [:h3 "我的github项目"]
+          [:h3 "我的项目"]
           [:div [:ul#myrepos ]]]]] ;;end section@github
        (get-footer app)])))
 

@@ -5,6 +5,20 @@
         www-itang-me.utils
         www-itang-me.views.layouts))
 
+(def max-show-logs-num 6)
+(def max-half-show-logs-num (/ max-show-logs-num 2))
+
+(defn- log-as-li [logs]
+  (for [log logs]
+    [:li (:sync_at log)]))
+
+(defn- show-logs [sync-logs]
+  (if (<= (count sync-logs) max-show-logs-num)
+    (log-as-li sync-logs)
+    (concat (log-as-li (take max-half-show-logs-num sync-logs))
+      [[:li "..."]]
+      (log-as-li (take-last max-half-show-logs-num sync-logs)))))
+
 (defn index
   [projects project-sync-logs]
   (default-layout
@@ -15,8 +29,7 @@
        [:div.well {}
         [:h4 "同步日志"]
         [:ul {}
-         (for [log project-sync-logs]
-           [:li (:sync_at log)])]]]
+         (show-logs project-sync-logs)]]]
       [:div.content {}
        (when (auth/is-me?)
          [:button#btnSync {:class "btn primary"} "同步"])
@@ -45,5 +58,4 @@
             [:td [:small (:description project)]]
             [:td (-> (:updated_at project) (.replaceAll "T|Z" " ") .trim)]
             [:td (:attention project)]
-            [:td [:button {:class "btn primary ding" :data (:name project)} "ding!"]]])]]]
-      )))
+            [:td [:button {:class "btn primary ding" :data (:name project)} "ding!"]]])]]])))

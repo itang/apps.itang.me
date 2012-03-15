@@ -1,5 +1,5 @@
 (ns www-itang-me.views.project-views
-  (:use [hiccup core page-helpers])
+  (:use [hiccup core page])
   (:require [www-itang-me.auth :as auth])
   (:use mvc.view-helpers
         www-itang-me.utils

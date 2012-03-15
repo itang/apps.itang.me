@@ -1,5 +1,5 @@
 (ns www-itang-me.views.bookmarker-views
-  (:use [hiccup core page-helpers]
+  (:use [hiccup core page]
         [mvc.view-helpers :only [include-app-js include-lib-min-js]]
         [www-itang-me.views.layouts :only [default-layout-template get-footer]]))
 

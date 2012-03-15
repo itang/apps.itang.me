@@ -1,5 +1,5 @@
 (ns mvc.view-helpers
-  (:use [hiccup.page-helpers :only (include-js include-css)]))
+  (:use [hiccup.page :only (include-js include-css)]))
 
 (defn javascript-tag-ext
   "javascript tag, 支持属性设定"

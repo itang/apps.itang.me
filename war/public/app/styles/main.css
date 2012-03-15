@@ -3,14 +3,19 @@
  */
 body {
     padding-top: 60px;
-    background: transparent url(../images/background.png);
+    /*background: transparent url(../images/background.png);*/
+    padding-bottom: 40px;
+}
+
+.sidebar-nav {
+    padding: 9px 0;
 }
 
 section {
     padding-top: 30px;
 }
 
-section > .row {
+section > .row-fluid {
     margin-bottom: 10px;
 }
 

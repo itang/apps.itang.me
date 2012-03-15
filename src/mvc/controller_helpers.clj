@@ -1,5 +1,5 @@
 (ns mvc.controller-helpers
-  (:use [hiccup.page-helpers :only (html5)])
+  (:use [hiccup.page :only (html5)])
   (:require [cheshire.core :as json])
   (:use [mvc.templates :only [stencil-template]]))
 

@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background: transparent url(../images/background.png);
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -30px; /* the bottom margin is the negative value of the footer's height */
+}
+
+#footer, .push {
+    height: 30px; /* .push must be the same height as .footer */
+}
+
+#footer {
+}
+
+#content {
+    margin-top: 100px;
+}
+
+#who {
+    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 8px;
+}
+
+#site-links {
+    border-left-style: dashed;
+    border-left-width: 1px;
+    padding-left: 20px;
+}
+

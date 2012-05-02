@@ -1,7 +1,6 @@
 (ns mvc.controller-helpers
   (:use [hiccup.page :only (html5)])
-  (:require [cheshire.core :as json])
-  (:use [mvc.templates :only [stencil-template]]))
+  (:require [cheshire.core :as json]))
 
 (defstruct Message :success :message :data :detailMessage )
 
@@ -37,11 +36,6 @@
 (defn Html
   [body]
   (Result body))
-
-(defn Html-by-template [tpl-name & more]
-  (try
-    (Html (apply stencil-template tpl-name more))
-    (catch Exception e (Html (.getMessage e)))))
 
 (defn Ok
   [body]

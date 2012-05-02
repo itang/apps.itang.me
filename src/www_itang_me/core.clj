@@ -3,8 +3,7 @@
         [ring.middleware.params :only [wrap-params]])
   (:require [appengine-magic.core :as ae])
   (:use [mvc.middlewares :only [wrap-request-map]]
-        [mvc.controller-helpers]
-        [mvc.controller-helpers :only [Html-by-template]])
+        [mvc.controller-helpers])
   (:use [www-itang-me.controllers
          main-controllers
          project-controllers
@@ -15,7 +14,7 @@
          setting-controllers]))
 
 (defn- todo [message]
-  (Html-by-template "todo" :message message))
+  (Todo message))
 
 (defroutes www-itang-me-app-handler
   (main-routes)

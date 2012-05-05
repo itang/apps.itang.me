@@ -1,5 +1,6 @@
 (ns www-itang-me.views.layouts
-  (:use [hiccup core page]
+  (:use [net.cgrand.enlive-html]
+        [hiccup core page]
         [appengine-magic.services.user
          :only (user-logged-in? current-user get-nickname get-email login-url logout-url)])
   (:require [www-itang-me.auth :as auth]
@@ -8,6 +9,27 @@
         [mvc.scopes :only [request]]
         [www-itang-me.utils :only (getstring)]
         [www-itang-me.models.app :only (get-app)]))
+
+
+(defsnippet top-user-info-login "views/includes/info-login.html" [:div ]
+  []
+  [:#who ] (content (get-nickname (current-user)))
+  [:#link-signout ] (set-attr :href (logout-url)))
+
+(defsnippet top-user-info-to-login "views/includes/info-to-login.html" [:div ]
+  []
+  [:#link-signin ] (set-attr :href (login-url)))
+
+(deftemplate main "views/layouts/main.html"
+  [nav body]
+  [(keyword (str "#nav-" nav))] (set-attr :class "active")
+  [:#top-user-info ] (content
+                       (if (user-logged-in?)
+                         (top-user-info-login)
+                         (top-user-info-to-login)))
+  [:wrap-content ] (substitute body))
+
+
 
 (defn- match-uri [uri link]
   ;;TODO 更灵活的匹配规则
@@ -75,16 +97,16 @@
                           :content (getstring options "description" "itang的Personal Website")}]
             [:meta {:author "description" :content "itang - 唐古拉山"}]
             [:title (getstring title " - " config/website-title)]
-            (include-css "/public/libs/bootstrap-2.0.2/css/bootstrap.min.css")
-            (include-css "/public/libs/bootstrap-2.0.2/css/bootstrap-responsive.min.css")
+            (include-css "/public/libs/bootstrap-2.0.3/css/bootstrap.min.css")
+            (include-css "/public/libs/bootstrap-2.0.3/css/bootstrap-responsive.min.css")
             (include-app-css "main")
             [:link {:rel "shortcut icon" :href "/public/app/images/favicon.ico"}]
             (include-lib-js "roy" "0.1") ;; have include underscore, first it.
-            (include-lib-js "underscore" "1.2.2")
-            (include-lib-js "underscore.string" "2.0.0")
-            (include-lib-min-js "jquery" "1.7.1")
+            (include-lib-min-js "underscore" "1.3.3")
+            (include-lib-min-js "underscore.string" "2.0.0")
+            (include-lib-min-js "jquery" "1.7.2")
             (include-lib-js "handlebars" "1.0.0.beta.4")
-            (include-js "/public/libs/bootstrap-2.0.2/js/bootstrap.min.js")]
+            (include-js "/public/libs/bootstrap-2.0.3/js/bootstrap.min.js")]
            [:body {}
             (get-topbar)
             content])})

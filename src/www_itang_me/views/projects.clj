@@ -1,6 +1,6 @@
 (ns www-itang-me.views.projects
-  (:require [net.cgrand.enlive-html :as html]
-            [www-itang-me.models.projects :as Project]
+  (:use [net.cgrand.enlive-html])
+  (:require [www-itang-me.models.projects :as Project]
             [www-itang-me.auth :as auth]))
 
 (def max-show-logs-num 6)
@@ -18,20 +18,23 @@
       ["..."]
       (log-as (take-last max-half-show-logs-num sync-logs)))))
 
-(html/defsnippet project-index "views/projects/index.html" [:div#body-content ]
+(defsnippet index "views/projects/index.html" [:div#body-content ]
   [ctx]
-  [:#btnSync ] #(when (auth/is-me?) %)
+  [:#btnSync ]
+  #(when (auth/is-me?) %)
+
   [:li.log-item ]
-  (html/clone-for [log (show-logs (:logs ctx))] (html/content log))
+  (clone-for [log (show-logs (:logs ctx))] (content log))
+
   [:#projects :tbody :tr ]
-  (html/clone-for [[index project] (map #(vector %1 %2) (iterate inc 1) (:projects ctx))]
-    [:td.no ] (html/content (str index))
-    [:td.name :a ] (html/do->
-                     (html/content (str (:name project)))
-                     (html/set-attr :href (:website project))
-                     (html/set-attr :title (str (:description project) "\n" (:updated_at project))))
-    [:td.language ] (html/content (:language project))
-    [:td.description :small ] (html/content (:description project))
-    [:td.updated_at ] (html/content (-> (:updated_at project) (.replaceAll "T|Z" " ") .trim))
-    [:td.attention ] (html/content (str (:attention project)))
-    [:td.actions :button ] (html/set-attr :data (:name project))))
+  (clone-for [[index project] (map #(vector %1 %2) (iterate inc 1) (:projects ctx))]
+    [:td.no ] (content (str index))
+    [:td.name :a ] (do->
+                     (content (str (:name project)))
+                     (set-attr :href (:website project))
+                     (set-attr :title (str (:description project) "\n" (:updated_at project))))
+    [:td.language ] (content (:language project))
+    [:td.description :small ] (content (:description project))
+    [:td.updated_at ] (content (-> (:updated_at project) (.replaceAll "T|Z" " ") .trim))
+    [:td.attention ] (content (str (:attention project)))
+    [:td.actions :button ] (set-attr :data (:name project))))

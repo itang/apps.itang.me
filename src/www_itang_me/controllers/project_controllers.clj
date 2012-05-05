@@ -4,16 +4,17 @@
   (:require [www-itang-me.auth :as auth]
             [www-itang-me.models.projects :as Project])
   (:use [mvc.controller-helpers :only (Json Html)])
-  (:use [www-itang-me.views.layout :only (main-layout)]
-        [www-itang-me.views.projects :only (project-index)]))
+  (:require [www-itang-me.views.layouts :as layouts]
+            [www-itang-me.views.projects :as views-projects]))
 
 (defn project-routes
   []
   (context "/projects" _
     (GET "/" _
-      (Html (main-layout
-              (project-index {:logs (Project/project-sync-logs)
-                              :projects (Project/projects)}))))
+      (Html (layouts/main
+              "projects"
+              (views-projects/index {:logs (Project/project-sync-logs)
+                                     :projects (Project/projects)}))))
 
     (DELETE "/:name" [name]
       (let [p (Project/remove-project name)]

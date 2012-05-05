@@ -2,17 +2,20 @@
   (:use compojure.core
         [cljtang.lang :only (empty-else)])
   (:require [www-itang-me.models.bookmarkers :as bookmarkers]
-            [www-itang-me.views.bookmarker-views :as views]
+            [www-itang-me.views.layouts :as layouts]
+            [www-itang-me.views.bookmarkers :as views-bookmarkers]
             [www-itang-me.auth :as auth])
-  (:use [mvc.controller-helpers :only (Json)]))
+  (:use [mvc.controller-helpers :only (Html Json)]))
 
 (defn bookmarker-routes
   []
   (context "/apps/bookmarkers" _
     (GET "/" _
-      (views/index (if (auth/is-me?)
-                     (bookmarkers/find-all-bookmarkers)
-                     (bookmarkers/find-public-bookmarkers))))
+      (Html (layouts/main
+              "bookmarkers"
+              (views-bookmarkers/index (if (auth/is-me?)
+                                         (bookmarkers/find-all-bookmarkers)
+                                         (bookmarkers/find-public-bookmarkers))))))
 
     (POST "/" [name title url] ;{{name "name" title "title" url "url"} :params}
       (println name title url)

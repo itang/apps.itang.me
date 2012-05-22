@@ -12,6 +12,7 @@
   (context "/projects" _
     (GET "/" _
       (Html (layouts/main
+              "关注的项目 - 爱唐"
               "projects"
               (views-projects/index {:logs (Project/project-sync-logs)
                                      :projects (Project/projects)}))))

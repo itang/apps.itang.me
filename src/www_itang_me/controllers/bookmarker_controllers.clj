@@ -12,6 +12,7 @@
   (context "/apps/bookmarkers" _
     (GET "/" _
       (Html (layouts/main
+              "书签 - 爱唐"
               "bookmarkers"
               (views-bookmarkers/index (if (auth/is-me?)
                                          (bookmarkers/find-all-bookmarkers)

@@ -21,7 +21,8 @@
   [:#link-signin ] (set-attr :href (login-url)))
 
 (deftemplate main "views/layouts/main.html"
-  [nav body]
+  [title nav body]
+  [:title] (content title)
   [(keyword (str "#nav-" nav))] (set-attr :class "active")
   [:#top-user-info ] (content
                        (if (user-logged-in?)

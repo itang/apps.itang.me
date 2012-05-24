@@ -5,7 +5,7 @@
                  [org.clojure/tools.logging "0.2.3"]
                  [log4j/log4j "1.2.16"]
                  [commons-codec/commons-codec "1.6"]
-                 [compojure "1.0.4"]
+                 [compojure "1.1.0"]
                  [hiccup "1.0.0"]
                  [cheshire "4.0.0"]
                  [enlive "1.0.0"]]

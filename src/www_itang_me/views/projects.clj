@@ -28,7 +28,7 @@
 
   [:#projects :tbody :tr ]
   (clone-for [[index project] (map #(vector %1 %2) (iterate inc 1) (:projects ctx))]
-    [:td.no ] (content (str index))
+    [[:td (nth-child 1)]] (content (str index))
     [:td.name :a ] (do->
                      (content (str (:name project)))
                      (set-attr :href (:website project))

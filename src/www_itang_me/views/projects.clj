@@ -26,15 +26,15 @@
   [:li.log-item ]
   (clone-for [log (show-logs (:logs ctx))] (content log))
 
-  [:#projects :tbody :tr ]
+  [:#projects :tbody :tr]
   (clone-for [[index project] (map #(vector %1 %2) (iterate inc 1) (:projects ctx))]
     [[:td (nth-child 1)]] (content (str index))
-    [:td.name :a ] (do->
+    [[:td (nth-child 2)] :a] (do->
                      (content (str (:name project)))
                      (set-attr :href (:website project))
                      (set-attr :title (str (:description project) "\n" (:updated_at project))))
-    [:td.language ] (content (:language project))
-    [:td.description :small ] (content (:description project))
-    [:td.updated_at ] (content (-> (:updated_at project) (.replaceAll "T|Z" " ") .trim))
-    [:td.attention ] (content (str (:attention project)))
-    [:td.actions :button ] (set-attr :data (:name project))))
+    [[:td (nth-child 3)]] (content (:language project))
+    [[:td (nth-child 4)]:small ] (content (:description project))
+    [[:td (nth-child 5)]] (content (-> (:updated_at project) (.replaceAll "T|Z" " ") .trim))
+    [[:td (nth-child 6)]] (content (str (:attention project)))
+    [[:td (nth-child 7)] :button ] (set-attr :data (:name project))))

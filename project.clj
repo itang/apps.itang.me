@@ -8,7 +8,7 @@
                  [compojure "1.1.0"]
                  [hiccup "1.0.0"]
                  [cheshire "4.0.0"]
-                 [enlive "1.0.0"]]
+                 [enlive "1.0.1"]]
   :dev-dependencies [[appengine-magic "0.5.0"]
                      [lein-eclipse "1.0.0"]
                      [midje "1.3.1"]

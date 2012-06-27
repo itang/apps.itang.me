@@ -1,7 +1,8 @@
 (ns www-itang-me.controllers.project-controllers
   (:use [compojure.core :only [context GET POST DELETE]]
         [cljtang.lang :only (empty-else)])
-  (:require [www-itang-me.auth :as auth]
+  (:require [libs.github-client :as github]
+            [www-itang-me.auth :as auth]
             [www-itang-me.models.projects :as Project])
   (:use [mvc.controller-helpers :only (Json Html)])
   (:require [www-itang-me.views.layouts :as layouts]
@@ -12,10 +13,11 @@
   (context "/projects" _
     (GET "/" _
       (Html (layouts/main
-              "关注的项目 - 爱唐"
+              "项目 - 爱唐"
               "projects"
               (views-projects/index {:logs (Project/project-sync-logs)
-                                     :projects (Project/projects)}))))
+                                     :attention-projects (Project/projects)
+                                     :my-projects (github/user-repos "itang" {:page 1 :per-page 100})}))))
 
     (DELETE "/:name" [name]
       (let [p (Project/remove-project name)]

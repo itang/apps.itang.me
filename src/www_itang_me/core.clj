@@ -19,8 +19,6 @@
 (defroutes www-itang-me-app-handler
   (main-routes)
 
-  (old-routes)
-
   (project-routes)
 
   (bookmarker-routes)

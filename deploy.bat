@@ -1,2 +1,2 @@
 @echo off
-lein clean && lein appengine-prepare && appcfg update war/
+lein1 clean && lein1 appengine-prepare && appcfg update war/

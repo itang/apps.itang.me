@@ -38,5 +38,9 @@
         }
       });
     });
+
+    if(_.str.endsWith(location.href, "#my")){
+      $('a[href=#my]').tab('show');
+    }
   });
 })(jQuery);

@@ -13,39 +13,55 @@
     <div class="span9">
       <div class="content">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#by_updated">关注的github项目</a></li>
-          <li><a href="#by_group">按语言分组浏览(todo)</a></li>
-          <li><a href="#by_tag">按标签浏览(todo)</a></li>
+          <li class="active"><a href="#attention" data-toggle="tab">关注的项目</a></li>
+          <li><a href="#my" data-toggle="tab">我的项目</a></li>
         </ul>
-        <table class="table table-condensed" id="projects">
-          <thead>
-          <tr>
-            <th width="40px">#</th>
-            <th width="100px">名称</th>
-            <th width="80px">语言</th>
-            <th width="360px">描述</th>
-            <th>更新时间</th>
-            <th>关注度</th>
-            <th>*</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>1</td>
-            <td><a href="#" target="_blank" title=""></a></td>
-            <td>language</td>
-            <td><small>description</small></td>
-            <td>updatedAt</td>
-            <td>attention</td>
-            <td>
-              <button class="btn primary ding" data="rust">ding!</button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+        <div class="tab-content">
+          <div class="tab-pane active" id="attention">
+            <table class="table table-condensed" id="attention_projects">
+              <thead>
+              <tr>
+                <th width="40px">#</th>
+                <th width="100px">名称</th>
+                <th width="80px">语言</th>
+                <th width="360px">描述</th>
+                <th>更新时间</th>
+                <th>关注度</th>
+                <th>*</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>1</td>
+                <td><a href="#" target="_blank" title=""></a></td>
+                <td>language</td>
+                <td>
+                  <small>description</small>
+                </td>
+                <td>updatedAt</td>
+                <td>attention</td>
+                <td>
+                  <button class="btn primary ding" data="rust">ding!</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="my">
+            <ul id="my_projects">
+              <li>
+                <span class="index">1</span>&nbsp;<a href="#" title="" target="_blank">some</a>
+                <small></small>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <script src="/public/libs/jquery.tablesorter-2.0.5/jquery.tablesorter.min.js" type="text/javascript"></script>
+  <script src="/public/libs/jquery.tablesorter-2.0.5/jquery.tablesorter.min.js"
+          type="text/javascript"></script>
+  <script src="/public/libs/underscore.string-2.0.0/underscore.string.min.js"
+          type="text/javascript"></script>
   <script src="/public/app/scripts/projects.js" type="text/javascript"></script>
 </div>

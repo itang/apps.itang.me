@@ -9,7 +9,7 @@
 
 (defn bookmarker-routes
   []
-  (context "/apps/bookmarkers" _
+  (context "/bookmarkers" _
     (GET "/" _
       (Html (layouts/main
               "书签 - 爱唐"

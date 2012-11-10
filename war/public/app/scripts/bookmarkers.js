@@ -28,7 +28,7 @@
       (function updateHit() {
         var name = $(it).attr("data-it");
         $.ajax({
-          url:"/apps/bookmarkers/" + name + "/inc_hits",
+          url:"/bookmarkers/" + name + "/inc_hits",
           type:"POST",
           dataType:"json",
           success:function (result) {

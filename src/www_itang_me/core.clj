@@ -31,9 +31,6 @@
 
   (setting-routes)
 
-  (GET "/blog" _
-    (todo "Blog"))
-
   (GET "/apps" _
     (todo "Applications"))
 
